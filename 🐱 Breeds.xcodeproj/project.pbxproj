@@ -14,10 +14,13 @@
 		7AC9517D245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */; };
 		7AC9517F245EEAC9008EB7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AC9517E245EEAC9008EB7FB /* Assets.xcassets */; };
 		7AC95182245EEAC9008EB7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */; };
+		7AC9518A245EED24008EB7FB /* BreedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */; };
+		7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */; };
+		7AC9518F245F04F4008EB7FB /* Beerds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518E245F04F4008EB7FB /* Beerds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7AC9516F245EEAC3008EB7FB /* Cat Breeds Directory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cat Breeds Directory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AC9516F245EEAC3008EB7FB /* 🐱 Breeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "🐱 Breeds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC95172245EEAC3008EB7FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7AC95176245EEAC3008EB7FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,6 +29,9 @@
 		7AC9517E245EEAC9008EB7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AC95181245EEAC9008EB7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AC95183245EEAC9008EB7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsTableViewController.swift; sourceTree = "<group>"; };
+		7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		7AC9518E245F04F4008EB7FB /* Beerds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beerds.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +56,7 @@
 		7AC95170245EEAC3008EB7FB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7AC9516F245EEAC3008EB7FB /* Cat Breeds Directory.app */,
+				7AC9516F245EEAC3008EB7FB /* 🐱 Breeds.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,9 +64,12 @@
 		7AC95171245EEAC3008EB7FB /* Cat Breeds Directory */ = {
 			isa = PBXGroup;
 			children = (
+				7AC9518D245F04C4008EB7FB /* Models */,
 				7AC95172245EEAC3008EB7FB /* AppDelegate.swift */,
 				7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */,
 				7AC95176245EEAC3008EB7FB /* ViewController.swift */,
+				7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */,
+				7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */,
 				7AC95178245EEAC3008EB7FB /* Main.storyboard */,
 				7AC9517E245EEAC9008EB7FB /* Assets.xcassets */,
 				7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */,
@@ -68,6 +77,14 @@
 				7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */,
 			);
 			path = "Cat Breeds Directory";
+			sourceTree = "<group>";
+		};
+		7AC9518D245F04C4008EB7FB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7AC9518E245F04F4008EB7FB /* Beerds.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,7 +104,7 @@
 			);
 			name = "Cat Breeds Directory";
 			productName = "Cat Breeds Directory";
-			productReference = 7AC9516F245EEAC3008EB7FB /* Cat Breeds Directory.app */;
+			productReference = 7AC9516F245EEAC3008EB7FB /* 🐱 Breeds.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -105,7 +122,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7AC9516A245EEAC3008EB7FB /* Build configuration list for PBXProject "Cat Breeds Directory" */;
+			buildConfigurationList = 7AC9516A245EEAC3008EB7FB /* Build configuration list for PBXProject "🐱 Breeds" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -141,8 +158,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC9518F245F04F4008EB7FB /* Beerds.swift in Sources */,
+				7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */,
 				7AC95177245EEAC3008EB7FB /* ViewController.swift in Sources */,
 				7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */,
+				7AC9518A245EED24008EB7FB /* BreedsTableViewController.swift in Sources */,
 				7AC95175245EEAC3008EB7FB /* SceneDelegate.swift in Sources */,
 				7AC9517D245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld in Sources */,
 			);
@@ -220,7 +240,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -274,7 +294,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -296,7 +316,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "OG.Cat-Breeds-Directory";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "🐱 Breeds";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -314,7 +334,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "OG.Cat-Breeds-Directory";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "🐱 Breeds";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -323,7 +343,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7AC9516A245EEAC3008EB7FB /* Build configuration list for PBXProject "Cat Breeds Directory" */ = {
+		7AC9516A245EEAC3008EB7FB /* Build configuration list for PBXProject "🐱 Breeds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AC95184245EEAC9008EB7FB /* Debug */,
