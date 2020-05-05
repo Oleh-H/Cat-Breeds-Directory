@@ -1,5 +1,5 @@
 //
-//  Beerds.swift
+//  BreedForList.swift
 //  Cat Breeds Directory
 //
 //  Created by Oleh Haistruk on 03.05.2020.
@@ -12,6 +12,4 @@ import Foundation
 struct Breed: Decodable {
     let id: String
     let name: String
-    let temperament: String
-    let life_span: String
 }

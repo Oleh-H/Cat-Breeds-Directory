@@ -13,11 +13,17 @@ class BreedsTableViewController: UITableViewController {
     //MARK: Properties
     
     let networkManager = NetworkManager()
-
+    var list: [Breed] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        networkManager.fetchBreeds()
+        networkManager.breeds(completion: { [weak self] breeds in
+            self?.list = breeds
+            print(breeds)
+            self?.tableView.reloadData()
+        })
+        
         navigationItem.title = "Breeds"
         navigationController?.navigationBar.prefersLargeTitles = true
 
@@ -27,23 +33,23 @@ class BreedsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return list.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "breedsList", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = list[indexPath.row].name
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

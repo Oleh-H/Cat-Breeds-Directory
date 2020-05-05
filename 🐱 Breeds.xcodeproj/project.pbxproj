@@ -9,21 +9,20 @@
 /* Begin PBXBuildFile section */
 		7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95172245EEAC3008EB7FB /* AppDelegate.swift */; };
 		7AC95175245EEAC3008EB7FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */; };
-		7AC95177245EEAC3008EB7FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95176245EEAC3008EB7FB /* ViewController.swift */; };
 		7AC9517A245EEAC3008EB7FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC95178245EEAC3008EB7FB /* Main.storyboard */; };
 		7AC9517D245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */; };
 		7AC9517F245EEAC9008EB7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AC9517E245EEAC9008EB7FB /* Assets.xcassets */; };
 		7AC95182245EEAC9008EB7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */; };
 		7AC9518A245EED24008EB7FB /* BreedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */; };
 		7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */; };
-		7AC9518F245F04F4008EB7FB /* Beerds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518E245F04F4008EB7FB /* Beerds.swift */; };
+		7AC9518F245F04F4008EB7FB /* BreedForList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518E245F04F4008EB7FB /* BreedForList.swift */; };
+		7ACF829624619A30006B1A0D /* BreedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7AC9516F245EEAC3008EB7FB /* 🐱 Breeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "🐱 Breeds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC95172245EEAC3008EB7FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7AC95176245EEAC3008EB7FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7AC95179245EEAC3008EB7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7AC9517C245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cat_Breeds_Directory.xcdatamodel; sourceTree = "<group>"; };
 		7AC9517E245EEAC9008EB7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -31,7 +30,8 @@
 		7AC95183245EEAC9008EB7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsTableViewController.swift; sourceTree = "<group>"; };
 		7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		7AC9518E245F04F4008EB7FB /* Beerds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beerds.swift; sourceTree = "<group>"; };
+		7AC9518E245F04F4008EB7FB /* BreedForList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedForList.swift; sourceTree = "<group>"; };
+		7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +67,7 @@
 				7AC9518D245F04C4008EB7FB /* Models */,
 				7AC95172245EEAC3008EB7FB /* AppDelegate.swift */,
 				7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */,
-				7AC95176245EEAC3008EB7FB /* ViewController.swift */,
-				7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */,
+				7ACF8294246199E4006B1A0D /* View Controllers */,
 				7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */,
 				7AC95178245EEAC3008EB7FB /* Main.storyboard */,
 				7AC9517E245EEAC9008EB7FB /* Assets.xcassets */,
@@ -82,9 +81,18 @@
 		7AC9518D245F04C4008EB7FB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7AC9518E245F04F4008EB7FB /* Beerds.swift */,
+				7AC9518E245F04F4008EB7FB /* BreedForList.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7ACF8294246199E4006B1A0D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */,
+				7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,9 +166,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AC9518F245F04F4008EB7FB /* Beerds.swift in Sources */,
+				7AC9518F245F04F4008EB7FB /* BreedForList.swift in Sources */,
+				7ACF829624619A30006B1A0D /* BreedDetailsViewController.swift in Sources */,
 				7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */,
-				7AC95177245EEAC3008EB7FB /* ViewController.swift in Sources */,
 				7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */,
 				7AC9518A245EED24008EB7FB /* BreedsTableViewController.swift in Sources */,
 				7AC95175245EEAC3008EB7FB /* SceneDelegate.swift in Sources */,
