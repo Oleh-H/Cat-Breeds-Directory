@@ -30,9 +30,28 @@ class BreedDetailsViewController: UIViewController {
     @IBOutlet weak var valueIndor: UILabel!
     
     @IBOutlet weak var nameAdaptability: UILabel!
-//    @IBOutlet weak var valueAdaptability: UILabel!
     @IBOutlet weak var valueAdaptabilityProgress: UIProgressView!
     @IBOutlet weak var valueAdaptabilityLabel: UILabel!
+    
+    @IBOutlet weak var nameAffection: UILabel!
+    @IBOutlet weak var valueAffectionProgress: UIProgressView!
+    @IBOutlet weak var valueAffectionLabel: UILabel!
+    
+    @IBOutlet weak var nameCatFriendly: UILabel!
+    @IBOutlet weak var valueCatFriendlyProgress: UIProgressView!
+    @IBOutlet weak var valueCatFriendlyLabel: UILabel!
+    
+    @IBOutlet weak var valueChildFriendlyProgress: UIProgressView!
+    @IBOutlet weak var valueChildFriendlyLabel: UILabel!
+    
+    @IBOutlet weak var valueDogFriendlyProgress: UIProgressView!
+    @IBOutlet weak var valueDogFriendlyLabel: UILabel!
+    
+    @IBOutlet weak var valueEnergyLevelProgress: UIProgressView!
+    @IBOutlet weak var valueEnergyLevelLabel: UILabel!
+    
+    @IBOutlet var zeroLabel: [UILabel]!
+    @IBOutlet var fiveLabel: [UILabel]!
     
     
     //MARK: - Properties
@@ -41,15 +60,15 @@ class BreedDetailsViewController: UIViewController {
     
     var breedID: String = ""
     var breedDetails: [BreedDetails] = []
-    let noInfo = "no information available"
+    let noInfo = "No information available"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        catsImage.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        catsImage.layer.shadowColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         catsImage.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         catsImage.layer.shadowRadius = CGFloat(5.0)
-        catsImage.layer.shadowOpacity = 0.7
+        catsImage.layer.shadowOpacity = 1.0
         catsImage.layer.masksToBounds = false
         
 //        imageContainerView.layer.cornerRadius = 15
@@ -63,6 +82,7 @@ class BreedDetailsViewController: UIViewController {
             self?.updateUI(details: details)
         }
     }
+    
     
     func updateUI(details: [BreedDetails]) {
         if let imageURL = details.first?.url {
@@ -94,21 +114,46 @@ class BreedDetailsViewController: UIViewController {
                         self.valueIndor.text = self.binaryToYesNo(number: breed.indoor)
                         
                         self.nameAdaptability.text = "Adaptability:"
-                        if let adaptability = breed.adaptability {
-                            let progressLevel = self.intToProgressLevel(level: adaptability)
-                            self.valueAdaptabilityProgress.setProgress(progressLevel.level, animated: false)
-                            self.valueAdaptabilityProgress.tintColor = progressLevel.color
-                        } else {
-                            self.valueAdaptabilityProgress.isHidden = true
-                            self.valueAdaptabilityLabel.isHidden = false
-                            self.valueAdaptabilityLabel.text = self.noInfo
-                        }
+                        self.setValueToProgressView(value: breed.adaptability,
+                                                    progressView: self.valueAdaptabilityProgress,
+                                                    noInfolabel: self.valueAdaptabilityLabel,
+                                                    zeroFiveLabelsNumber: 0)
+                        
+                        self.nameAffection.text = "Affection level:"
+                        self.setValueToProgressView(value: breed.affectionLevel,
+                                                    progressView: self.valueAffectionProgress,
+                                                    noInfolabel: self.valueAffectionLabel,
+                                                    zeroFiveLabelsNumber: 1)
+                        
+                        self.nameCatFriendly.text = "Cat friendly:"
+                        self.setValueToProgressView(value: breed.catFriendly,
+                                                    progressView: self.valueCatFriendlyProgress,
+                                                    noInfolabel: self.valueCatFriendlyLabel,
+                                                    zeroFiveLabelsNumber: 2)
+                        //Child Friendly
+                        self.setValueToProgressView(value: breed.childFriendly,
+                                                    progressView: self.valueChildFriendlyProgress,
+                                                    noInfolabel: self.valueChildFriendlyLabel,
+                                                    zeroFiveLabelsNumber: 3)
+                        //Dog Friendly
+                        self.setValueToProgressView(value: breed.dogFriendly,
+                                                    progressView: self.valueDogFriendlyProgress,
+                                                    noInfolabel: self.valueDogFriendlyLabel,
+                                                    zeroFiveLabelsNumber: 4)
+                        //Energy Level
+                        self.setValueToProgressView(value: breed.energyLevel,
+                                                    progressView: self.valueEnergyLevelProgress,
+                                                    noInfolabel: self.valueEnergyLevelLabel,
+                                                    zeroFiveLabelsNumber: 5)
+                        //Grooming
+                        self.setValueToProgressView(value: breed.grooming, progressView: <#T##UIProgressView#>, noInfolabel: <#T##UILabel#>, zeroFiveLabelsNumber: <#T##Int#>)
                     }
                 }
             }
         }
     }
     
+    // set yes or no instead of 1 or 0 numbers
     func binaryToYesNo(number: Int?) -> String {
         guard let binar = number else { return noInfo }
         switch binar {
@@ -119,6 +164,8 @@ class BreedDetailsViewController: UIViewController {
         }
     }
     
+    
+    //convert 0-5 int value to 1/5 progress steps
     func intToProgressLevel(level: Int) -> (level: Float, color:UIColor) {
         switch level {
         case 0:
@@ -133,6 +180,22 @@ class BreedDetailsViewController: UIViewController {
             return (0.8, UIColor.systemGreen)
         default:
             return (1.0, UIColor.systemGreen)
+        }
+    }
+    
+    
+    // set value to progress view if value is not nil. If it is nil, function hide progressView, labels 0 and 5 and displays no info label
+    func setValueToProgressView(value: Int?, progressView: UIProgressView, noInfolabel: UILabel, zeroFiveLabelsNumber: Int) {
+        if let value = value {
+            let progressLevel = intToProgressLevel(level: value)
+            progressView.setProgress(progressLevel.level, animated: false)
+            progressView.tintColor = progressLevel.color
+        } else {
+            progressView.isHidden = true
+            zeroLabel[zeroFiveLabelsNumber].isHidden = true
+            fiveLabel[zeroFiveLabelsNumber].isHidden = true
+            noInfolabel.isHidden = false
+            noInfolabel.text = self.noInfo
         }
     }
     /*

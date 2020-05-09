@@ -26,7 +26,7 @@ struct Breed: Decodable {
     //let lap: Int
     let altNames: String? //skipped
     let adaptability: Int?
-    let affectionLevel: Int?
+    let affectionLevel: Int? //level of favor
     let catFriendly: Int?
     let childFriendly: Int?
     let dogFriendly: Int?

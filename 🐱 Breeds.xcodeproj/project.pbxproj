@@ -51,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A6B8E7B2466A5E3001EFB30 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		7AC95166245EEAC3008EB7FB = {
 			isa = PBXGroup;
 			children = (
@@ -71,12 +79,12 @@
 			isa = PBXGroup;
 			children = (
 				7AC9518D245F04C4008EB7FB /* Models */,
-				7AC95172245EEAC3008EB7FB /* AppDelegate.swift */,
-				7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */,
 				7ACF8294246199E4006B1A0D /* View Controllers */,
-				7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */,
+				7A6B8E7B2466A5E3001EFB30 /* Network */,
 				7AC95178245EEAC3008EB7FB /* Main.storyboard */,
 				7AC9517E245EEAC9008EB7FB /* Assets.xcassets */,
+				7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */,
+				7AC95172245EEAC3008EB7FB /* AppDelegate.swift */,
 				7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */,
 				7AC95183245EEAC9008EB7FB /* Info.plist */,
 				7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */,
