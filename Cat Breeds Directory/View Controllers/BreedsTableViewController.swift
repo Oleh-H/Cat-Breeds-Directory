@@ -13,20 +13,29 @@ class BreedsTableViewController: UITableViewController {
     //MARK: Properties
     
     let networkManager = NetworkManager()
-    var list: [Breed] = []
+    var breedsList: [BreedForTable] = []
+    var selectedBreedID: String = ""
+    
+    //MARK: - ViewControllerLifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        networkManager.breeds(completion: { [weak self] breeds in
-            self?.list = breeds
-            print(breeds)
-            self?.tableView.reloadData()
+        networkManager.getBreedsList(completion: { [weak self] breeds in
+            self?.breedsList = breeds
+//            print(breeds)
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                
+            }
         })
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Breeds"
         navigationController?.navigationBar.prefersLargeTitles = true
-
+        
     }
 
     // MARK: - Table view data source
@@ -38,19 +47,24 @@ class BreedsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return list.count
+        return breedsList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "breedsList", for: indexPath)
 
-        cell.textLabel?.text = list[indexPath.row].name
+        cell.textLabel?.text = breedsList[indexPath.row].name
 
         return cell
     }
     
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedBreedID = breedsList[indexPath.row].id
+        performSegue(withIdentifier: "toBreedDetails", sender: self)
+        
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -86,14 +100,18 @@ class BreedsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        guard segue.identifier == "toBreedDetails" else {return}
+        guard let destination = segue.destination as? BreedDetailsViewController else {
+            return
+        }
+        
+        destination.breedID = selectedBreedID
     }
-    */
+    
 
 }
