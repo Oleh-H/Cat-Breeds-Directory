@@ -14,30 +14,22 @@ class BreedDetailsViewController: UIViewController {
     @IBOutlet weak var catsImage: UIImageView!
     @IBOutlet weak var breedName: UILabel!
     
-    @IBOutlet weak var nameDescription: UILabel!
     @IBOutlet weak var valueDescription: UILabel!
     
-    @IBOutlet weak var nameTemperament: UILabel!
     @IBOutlet weak var valueTemperament: UILabel!
     
-    @IBOutlet weak var nameOrigin: UILabel!
     @IBOutlet weak var valueOrigin: UILabel!
     
-    @IBOutlet weak var nameLifeSpan: UILabel!
     @IBOutlet weak var valueLifeSpan: UILabel!
     
-    @IBOutlet weak var nameIndor: UILabel!
     @IBOutlet weak var valueIndor: UILabel!
     
-    @IBOutlet weak var nameAdaptability: UILabel!
     @IBOutlet weak var valueAdaptabilityProgress: UIProgressView!
     @IBOutlet weak var valueAdaptabilityLabel: UILabel!
     
-    @IBOutlet weak var nameAffection: UILabel!
     @IBOutlet weak var valueAffectionProgress: UIProgressView!
     @IBOutlet weak var valueAffectionLabel: UILabel!
     
-    @IBOutlet weak var nameCatFriendly: UILabel!
     @IBOutlet weak var valueCatFriendlyProgress: UIProgressView!
     @IBOutlet weak var valueCatFriendlyLabel: UILabel!
     
@@ -49,6 +41,41 @@ class BreedDetailsViewController: UIViewController {
     
     @IBOutlet weak var valueEnergyLevelProgress: UIProgressView!
     @IBOutlet weak var valueEnergyLevelLabel: UILabel!
+    
+    @IBOutlet weak var valueGroomingProgress: UIProgressView!
+    @IBOutlet weak var valueGroomingLabel: UILabel!
+    
+    @IBOutlet weak var valuehealthIssuesProgress: UIProgressView!
+    @IBOutlet weak var valuehealthIssuesLabel: UILabel!
+    
+    @IBOutlet weak var valueIntelligenceProgress: UIProgressView!
+    @IBOutlet weak var valueIntelligenceLabel: UILabel!
+    
+    @IBOutlet weak var valueSheddingLevelProgress: UIProgressView!
+    @IBOutlet weak var valueSheddingLevelLabel: UILabel!
+    
+    @IBOutlet weak var valueSocialNeedsProgress: UIProgressView!
+    @IBOutlet weak var valueSocialNeedsLabel: UILabel!
+    
+    @IBOutlet weak var valueStrangerFriendlyProgress: UIProgressView!
+    @IBOutlet weak var valueStrangerFriendlyLabel: UILabel!
+    
+    @IBOutlet weak var valueVocalisationProgress: UIProgressView!
+    @IBOutlet weak var valueVocalisationLabel: UILabel!
+    
+    @IBOutlet weak var valueExperimentalLabel: UILabel!
+    
+    @IBOutlet weak var valueHairlessLabel: UILabel!
+    
+    @IBOutlet weak var valueRareLabel: UILabel!
+    
+    @IBOutlet weak var valueRexLabel: UILabel!
+    
+    @IBOutlet weak var valueSuppressedTailLabel: UILabel!
+    
+    @IBOutlet weak var valueShortLegsLabel: UILabel!
+    
+    @IBOutlet weak var valueHypoallergenicLabel: UILabel!
     
     @IBOutlet var zeroLabel: [UILabel]!
     @IBOutlet var fiveLabel: [UILabel]!
@@ -80,6 +107,7 @@ class BreedDetailsViewController: UIViewController {
             print(self?.breedID)
             self?.breedDetails = details
             self?.updateUI(details: details)
+
         }
     }
     
@@ -92,16 +120,17 @@ class BreedDetailsViewController: UIViewController {
                     if let breed: Breed = self.breedDetails.first?.breeds.first {
                         self.breedName.text = breed.name
 //                        self.navigationItem.title = breed.name
-                        self.nameDescription.text = "Description:"
+                        
+                        //Description
                         self.valueDescription.text = breed.description
                         
-                        self.nameTemperament.text = "Temperament:"
+                        //Temperament
                         self.valueTemperament.text = breed.temperament
                         
-                        self.nameOrigin.text = "Origin:"
+                        //Origin
                         self.valueOrigin.text = "\(breed.origin ?? self.noInfo) \(self.emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
                         
-                        self.nameLifeSpan.text = "Life Span:"
+                        //Life Span
                         self.valueLifeSpan.text = {
                             if let lifeSpan = breed.lifeSpan {
                                 return "\(lifeSpan) years"
@@ -110,43 +139,102 @@ class BreedDetailsViewController: UIViewController {
                             }
                         }()
                         
-                        self.nameIndor.text = "Indor:"
-                        self.valueIndor.text = self.binaryToYesNo(number: breed.indoor)
                         
-                        self.nameAdaptability.text = "Adaptability:"
+                        //Adaptability
                         self.setValueToProgressView(value: breed.adaptability,
                                                     progressView: self.valueAdaptabilityProgress,
                                                     noInfolabel: self.valueAdaptabilityLabel,
                                                     zeroFiveLabelsNumber: 0)
                         
-                        self.nameAffection.text = "Affection level:"
+                        //Affection level
                         self.setValueToProgressView(value: breed.affectionLevel,
                                                     progressView: self.valueAffectionProgress,
                                                     noInfolabel: self.valueAffectionLabel,
                                                     zeroFiveLabelsNumber: 1)
                         
-                        self.nameCatFriendly.text = "Cat friendly:"
+                        //Cat friendly
                         self.setValueToProgressView(value: breed.catFriendly,
                                                     progressView: self.valueCatFriendlyProgress,
                                                     noInfolabel: self.valueCatFriendlyLabel,
                                                     zeroFiveLabelsNumber: 2)
-                        //Child Friendly
+                        //Child friendly
                         self.setValueToProgressView(value: breed.childFriendly,
                                                     progressView: self.valueChildFriendlyProgress,
                                                     noInfolabel: self.valueChildFriendlyLabel,
                                                     zeroFiveLabelsNumber: 3)
-                        //Dog Friendly
+                        //Dog friendly
                         self.setValueToProgressView(value: breed.dogFriendly,
                                                     progressView: self.valueDogFriendlyProgress,
                                                     noInfolabel: self.valueDogFriendlyLabel,
                                                     zeroFiveLabelsNumber: 4)
-                        //Energy Level
+                        //Energy level
                         self.setValueToProgressView(value: breed.energyLevel,
                                                     progressView: self.valueEnergyLevelProgress,
                                                     noInfolabel: self.valueEnergyLevelLabel,
                                                     zeroFiveLabelsNumber: 5)
                         //Grooming
-                        self.setValueToProgressView(value: breed.grooming, progressView: <#T##UIProgressView#>, noInfolabel: <#T##UILabel#>, zeroFiveLabelsNumber: <#T##Int#>)
+                        self.setValueToProgressView(value: breed.grooming,
+                                                    progressView: self.valueGroomingProgress,
+                                                    noInfolabel: self.valueGroomingLabel,
+                                                    zeroFiveLabelsNumber: 6)
+                        
+                        //Health issues
+                        self.setValueToProgressView(value: breed.healthIssues,
+                                                    progressView: self.valuehealthIssuesProgress,
+                                                    noInfolabel: self.valuehealthIssuesLabel,
+                                                    zeroFiveLabelsNumber: 7)
+                        
+                        //Intelligence
+                        self.setValueToProgressView(value: breed.intelligence,
+                                                    progressView: self.valueIntelligenceProgress,
+                                                    noInfolabel: self.valueIntelligenceLabel,
+                                                    zeroFiveLabelsNumber: 8)
+                        //Shedding level
+                        self.setValueToProgressView(value: breed.sheddingLevel,
+                                                    progressView: self.valueSheddingLevelProgress,
+                                                    noInfolabel: self.valueSheddingLevelLabel,
+                                                    zeroFiveLabelsNumber: 9)
+                        //Social needs
+                        self.setValueToProgressView(value: breed.socialNeeds,
+                                                    progressView: self.valueSocialNeedsProgress,
+                                                    noInfolabel: self.valueSocialNeedsLabel,
+                                                    zeroFiveLabelsNumber: 10)
+                        
+                        //Stranger friendly
+                        self.setValueToProgressView(value: breed.strangerFriendly,
+                                                    progressView: self.valueStrangerFriendlyProgress,
+                                                    noInfolabel: self.valueStrangerFriendlyLabel,
+                                                    zeroFiveLabelsNumber: 11)
+                        
+                        //Vocalisation
+                        self.setValueToProgressView(value: breed.vocalisation,
+                                                    progressView: self.valueVocalisationProgress,
+                                                    noInfolabel: self.valueVocalisationLabel,
+                                                    zeroFiveLabelsNumber: 12)
+                        
+                        //Indor
+                        self.valueIndor.text = self.binaryToYesNo(number: breed.indoor)
+                        
+                        //Experimental
+                        self.valueExperimentalLabel.text = self.binaryToYesNo(number: breed.experimental)
+                        
+                        //Hairless
+                        self.valueHairlessLabel.text = self.binaryToYesNo(number: breed.experimental)
+                        
+                        //Rare
+                        self.valueRareLabel.text = self.binaryToYesNo(number: breed.rare)
+                        
+                        //Rex
+                        self.valueRexLabel.text = self.binaryToYesNo(number: breed.rex)
+                        
+                        //Suppressed tail
+                        self.valueSuppressedTailLabel.text = self.binaryToYesNo(number: breed.suppressedTail)
+                        
+                        //Short legs
+                        self.valueShortLegsLabel.text = self.binaryToYesNo(number: breed.shortLegs)
+                        
+                        //
+                        self.valueHypoallergenicLabel.text = self.binaryToYesNo(number: breed.hypoallergenic)
                     }
                 }
             }
@@ -169,17 +257,17 @@ class BreedDetailsViewController: UIViewController {
     func intToProgressLevel(level: Int) -> (level: Float, color:UIColor) {
         switch level {
         case 0:
-            return (0.0, UIColor.systemRed)
+            return (0.0, UIColor.systemYellow)
         case 1:
-            return (0.2, UIColor.systemRed)
+            return (0.2, UIColor.systemYellow)
         case 2:
-            return (0.4, UIColor.systemYellow)
+            return (0.4, UIColor.systemOrange)
         case 3:
-            return (0.6, UIColor.systemYellow)
+            return (0.6, UIColor.systemOrange)
         case 4:
-            return (0.8, UIColor.systemGreen)
+            return (0.8, UIColor.systemRed)
         default:
-            return (1.0, UIColor.systemGreen)
+            return (1.0, UIColor.systemRed)
         }
     }
     
@@ -189,7 +277,7 @@ class BreedDetailsViewController: UIViewController {
         if let value = value {
             let progressLevel = intToProgressLevel(level: value)
             progressView.setProgress(progressLevel.level, animated: false)
-            progressView.tintColor = progressLevel.color
+//            progressView.tintColor = progressLevel.color
         } else {
             progressView.isHidden = true
             zeroLabel[zeroFiveLabelsNumber].isHidden = true
