@@ -7,20 +7,25 @@
 //
 
 import UIKit
+import SafariServices
 
 class BreedDetailsViewController: UIViewController {
 
     //MARK: Outlets
+    @IBOutlet weak var tapToChangeLabel: UILabel!
+    
     @IBOutlet weak var catsImage: UIImageView!
     @IBOutlet weak var breedName: UILabel!
-    
-    @IBOutlet weak var valueDescription: UILabel!
     
     @IBOutlet weak var valueTemperament: UILabel!
     
     @IBOutlet weak var valueOrigin: UILabel!
     
+    @IBOutlet weak var valueDescription: UILabel!
+    
     @IBOutlet weak var valueLifeSpan: UILabel!
+    
+    @IBOutlet weak var valueWeightLabel: UILabel!
     
     @IBOutlet weak var valueIndor: UILabel!
     
@@ -89,6 +94,7 @@ class BreedDetailsViewController: UIViewController {
     var breedDetails: [BreedDetails] = []
     let noInfo = "No information available"
     
+    //MARK: - ViewController life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -111,7 +117,7 @@ class BreedDetailsViewController: UIViewController {
         }
     }
     
-    
+    //MARK: - UI updating
     func updateUI(details: [BreedDetails]) {
         if let imageURL = details.first?.url {
             networkManager.getImage(imageURL: imageURL) { (image) in
@@ -138,6 +144,9 @@ class BreedDetailsViewController: UIViewController {
                                 return self.noInfo
                             }
                         }()
+                        
+                        //Weight
+                        self.valueWeightLabel.text = "\(breed.weight.metric ?? self.noInfo) kg  (\(breed.weight.imperial ?? "") lb)"
                         
                         
                         //Adaptability
@@ -241,6 +250,9 @@ class BreedDetailsViewController: UIViewController {
         }
     }
     
+    
+    //MARK: - Support func for UI update
+    
     // set yes or no instead of 1 or 0 numbers
     func binaryToYesNo(number: Int?) -> String {
         guard let binar = number else { return noInfo }
@@ -286,6 +298,8 @@ class BreedDetailsViewController: UIViewController {
             noInfolabel.text = self.noInfo
         }
     }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -296,4 +310,70 @@ class BreedDetailsViewController: UIViewController {
     }
     */
 
+}
+//MARK: - Extension
+extension BreedDetailsViewController {
+    
+    
+    //MARK: Get another Image
+    //load and display new  breed image on tap
+    @IBAction func imageTapped(_ gestureRecignizer: UITapGestureRecognizer) {
+        guard gestureRecignizer.view != nil else {
+            return
+        }
+        
+        if gestureRecignizer.state == .ended {
+            networkManager.getBreedDetails(breedID: breedID) { (breedDetails) in
+                self.networkManager.getImage(imageURL: breedDetails.first!.url) { (newImage) in
+                    self.imageChangingAnimation(newImage: newImage)
+                }
+            }
+        }
+        tapToChangeLabel.textColor = .clear
+    }
+    
+    //animate changing of the cat image
+    func imageChangingAnimation(newImage: UIImage) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.catsImage.alpha = 0
+            }) {_ in
+                self.catsImage.image = newImage
+                UIView.animate(withDuration: 0.4) {
+                    self.catsImage.alpha = 1
+                }
+            }
+        }
+    }
+    
+    //MARK: Safari View Controller
+    //Present links in Safari ViewController
+    func presentSafariVCForUrl(urlString: String?, sender: UIButton) {
+        guard let cfaURLString = urlString else {
+            sender.isEnabled = false
+            return
+        }
+        if let url = URL(string: cfaURLString) {
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
+    }
+    
+    
+    @IBAction func cfaURLTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.cfaURL, sender: sender)
+    }
+    
+    @IBAction func vcaHospitalsTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vcahospitalsURL, sender: sender)
+    }
+    
+    @IBAction func vetStreetTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vetstreetURL, sender: sender)
+    }
+    
+    @IBAction func wikipediaTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.wikipediaURL, sender: sender)
+    }
+    
 }

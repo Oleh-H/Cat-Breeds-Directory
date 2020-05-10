@@ -78,6 +78,7 @@ class NetworkManager {
         task.resume()
     }
     
+    
     func parseDataToBreedsList(_ data: Data) {
         let jsonDecoder = JSONDecoder()
         do {
