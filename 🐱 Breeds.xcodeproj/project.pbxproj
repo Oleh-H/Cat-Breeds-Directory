@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A1AB9DE24683CF300B5E634 /* AditionalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */; };
 		7A525EAE2464608D004D987C /* BreedForTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAD2464608D004D987C /* BreedForTable.swift */; };
 		7A525EB02465970B004D987C /* EmojiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAF2465970B004D987C /* EmojiManager.swift */; };
 		7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95172245EEAC3008EB7FB /* AppDelegate.swift */; };
@@ -15,7 +16,7 @@
 		7AC9517D245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */; };
 		7AC9517F245EEAC9008EB7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AC9517E245EEAC9008EB7FB /* Assets.xcassets */; };
 		7AC95182245EEAC9008EB7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */; };
-		7AC9518A245EED24008EB7FB /* BreedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */; };
+		7AC9518A245EED24008EB7FB /* BreedsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95189245EED24008EB7FB /* BreedsListViewController.swift */; };
 		7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */; };
 		7AC9518F245F04F4008EB7FB /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518E245F04F4008EB7FB /* Breed.swift */; };
 		7ACF829624619A30006B1A0D /* BreedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AditionalFunctions.swift; sourceTree = "<group>"; };
 		7A525EAD2464608D004D987C /* BreedForTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedForTable.swift; sourceTree = "<group>"; };
 		7A525EAF2465970B004D987C /* EmojiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiManager.swift; sourceTree = "<group>"; };
 		7AC9516F245EEAC3008EB7FB /* 🐱 Breeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "🐱 Breeds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,7 +35,7 @@
 		7AC9517E245EEAC9008EB7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AC95181245EEAC9008EB7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AC95183245EEAC9008EB7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsTableViewController.swift; sourceTree = "<group>"; };
+		7AC95189245EED24008EB7FB /* BreedsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsListViewController.swift; sourceTree = "<group>"; };
 		7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7AC9518E245F04F4008EB7FB /* Breed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Breed.swift; sourceTree = "<group>"; };
 		7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetailsViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +53,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A1AB9DC24683CAE00B5E634 /* DetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */,
+				7A525EAF2465970B004D987C /* EmojiManager.swift */,
+				7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */,
+			);
+			path = DetailsViewController;
+			sourceTree = "<group>";
+		};
 		7A6B8E7B2466A5E3001EFB30 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,9 +117,8 @@
 		7ACF8294246199E4006B1A0D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7AC95189245EED24008EB7FB /* BreedsTableViewController.swift */,
-				7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */,
-				7A525EAF2465970B004D987C /* EmojiManager.swift */,
+				7AC95189245EED24008EB7FB /* BreedsListViewController.swift */,
+				7A1AB9DC24683CAE00B5E634 /* DetailsViewController */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -188,11 +199,12 @@
 				7ACF829624619A30006B1A0D /* BreedDetailsViewController.swift in Sources */,
 				7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */,
 				7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */,
-				7AC9518A245EED24008EB7FB /* BreedsTableViewController.swift in Sources */,
+				7AC9518A245EED24008EB7FB /* BreedsListViewController.swift in Sources */,
 				7A525EB02465970B004D987C /* EmojiManager.swift in Sources */,
 				7AD340422464379A00E956D5 /* BreedDetails.swift in Sources */,
 				7AC95175245EEAC3008EB7FB /* SceneDelegate.swift in Sources */,
 				7AC9517D245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld in Sources */,
+				7A1AB9DE24683CF300B5E634 /* AditionalFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

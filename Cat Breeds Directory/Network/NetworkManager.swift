@@ -51,8 +51,8 @@ class NetworkManager {
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
-                let string = String(bytes: data, encoding: .utf8)
-                print(string)
+//                let string = String(bytes: data, encoding: .utf8)
+//                print(string)
                 self.parseDataToBreedDetails(data)
                 
                 completion(self.breedsDetails)

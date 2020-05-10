@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import SafariServices
 
 class BreedDetailsViewController: UIViewController {
 
     //MARK: Outlets
+    @IBOutlet weak var shareBarButton: UIBarButtonItem!
     @IBOutlet weak var tapToChangeLabel: UILabel!
     
     @IBOutlet weak var catsImage: UIImageView!
@@ -86,6 +86,9 @@ class BreedDetailsViewController: UIViewController {
     @IBOutlet var fiveLabel: [UILabel]!
     
     
+    @IBOutlet weak var uiCoverView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     //MARK: - Properties
     let networkManager = NetworkManager()
     let emojiManager = EmojiManager()
@@ -98,22 +101,25 @@ class BreedDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        activityIndicator.hidesWhenStopped = true
+        
+        shareBarButton.isEnabled = false
+        
         catsImage.layer.shadowColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         catsImage.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         catsImage.layer.shadowRadius = CGFloat(5.0)
         catsImage.layer.shadowOpacity = 1.0
         catsImage.layer.masksToBounds = false
         
+        activityIndicator.startAnimating()
 //        imageContainerView.layer.cornerRadius = 15
 //        catsImage.clipsToBounds = true
 //        catsImage.layer.cornerRadius = 15
         
         navigationController?.navigationBar.prefersLargeTitles = false
-        networkManager.getBreedDetails(breedID: breedID) { [weak self] details in
-            print(self?.breedID)
+        networkManager.getBreedDetails(breedID: breedID) { [weak self] details in            
             self?.breedDetails = details
             self?.updateUI(details: details)
-
         }
     }
     
@@ -244,6 +250,10 @@ class BreedDetailsViewController: UIViewController {
                         
                         //
                         self.valueHypoallergenicLabel.text = self.binaryToYesNo(number: breed.hypoallergenic)
+                        
+                        self.shareBarButton.isEnabled = true
+                        self.activityIndicator.stopAnimating()
+                        self.uiCoverView.removeFromSuperview()
                     }
                 }
             }
@@ -310,70 +320,4 @@ class BreedDetailsViewController: UIViewController {
     }
     */
 
-}
-//MARK: - Extension
-extension BreedDetailsViewController {
-    
-    
-    //MARK: Get another Image
-    //load and display new  breed image on tap
-    @IBAction func imageTapped(_ gestureRecignizer: UITapGestureRecognizer) {
-        guard gestureRecignizer.view != nil else {
-            return
-        }
-        
-        if gestureRecignizer.state == .ended {
-            networkManager.getBreedDetails(breedID: breedID) { (breedDetails) in
-                self.networkManager.getImage(imageURL: breedDetails.first!.url) { (newImage) in
-                    self.imageChangingAnimation(newImage: newImage)
-                }
-            }
-        }
-        tapToChangeLabel.textColor = .clear
-    }
-    
-    //animate changing of the cat image
-    func imageChangingAnimation(newImage: UIImage) {
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.4, animations: {
-                self.catsImage.alpha = 0
-            }) {_ in
-                self.catsImage.image = newImage
-                UIView.animate(withDuration: 0.4) {
-                    self.catsImage.alpha = 1
-                }
-            }
-        }
-    }
-    
-    //MARK: Safari View Controller
-    //Present links in Safari ViewController
-    func presentSafariVCForUrl(urlString: String?, sender: UIButton) {
-        guard let cfaURLString = urlString else {
-            sender.isEnabled = false
-            return
-        }
-        if let url = URL(string: cfaURLString) {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
-    }
-    
-    
-    @IBAction func cfaURLTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.cfaURL, sender: sender)
-    }
-    
-    @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vcahospitalsURL, sender: sender)
-    }
-    
-    @IBAction func vetStreetTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vetstreetURL, sender: sender)
-    }
-    
-    @IBAction func wikipediaTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.wikipediaURL, sender: sender)
-    }
-    
 }
