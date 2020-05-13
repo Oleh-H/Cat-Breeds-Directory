@@ -12,30 +12,21 @@ import UIKit
 class NetworkManager {
     
     //MARK: - Properties
-    private let catApiUrl = "https://api.thecatapi.com/v1/"
-    private let apiKey = "6500c584-7d69-4cb5-8cd6-c807b1dfc2c9"
-    private let httpHeaterFieldForApiKey = "x-api-key"
-    
-    private var breedsList: [BreedIdAndName] = []
-    private var breedsDetails: [BreedDetails] = []
-
+    let jsonDataParser = JsonDataParser()
     typealias BreedsList = ([BreedIdAndName]) -> Void
 
     
-    
     func getBreedsList(completion: @escaping BreedsList) {
-        let catApiBreeds: String = "\(catApiUrl)breeds"
+        let catApiBreeds: String = "\(Constants.catApiUrl)breeds"
         guard let url = URL(string: catApiBreeds) else {return}
         var request = URLRequest(url: url)
-        request.addValue(apiKey, forHTTPHeaderField: httpHeaterFieldForApiKey)
+        request.addValue(Constants.apiKey, forHTTPHeaderField: Constants.httpHeaterFieldForApiKey)
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
 //                let string = String(bytes: data, encoding: .utf8)
-                self.parseDataToBreedsList(data)
-
-                completion(self.breedsList)
-                
+                let breedsList = self.jsonDataParser.parseDataToBreedsList(data)
+                completion(breedsList)
             } else if let error = error {
                 print(error.localizedDescription)
             }
@@ -44,19 +35,15 @@ class NetworkManager {
     }
     
     func getBreedDetails(breedID: String, completion: @escaping ([BreedDetails]) -> Void ) {
-        let catApiBreed: String = "\(catApiUrl)images/search?breed_id=\(breedID)"
+        let catApiBreed: String = "\(Constants.catApiUrl)images/search?breed_id=\(breedID)"
         guard let url = URL(string: catApiBreed) else {return}
         var request = URLRequest(url: url)
-        request.addValue(apiKey, forHTTPHeaderField: httpHeaterFieldForApiKey)
+        request.addValue(Constants.apiKey, forHTTPHeaderField: Constants.httpHeaterFieldForApiKey)
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
-//                let string = String(bytes: data, encoding: .utf8)
-//                print(string)
-                self.parseDataToBreedDetails(data)
-                
-                completion(self.breedsDetails)
-                
+                let breedsDetails = self.jsonDataParser.parseDataToBreedDetails(data)
+                completion(breedsDetails)
             } else if let error = error {
                 print(error.localizedDescription)
             }
@@ -67,7 +54,7 @@ class NetworkManager {
     func getImage(imageURL: String, completion: @escaping (UIImage) -> Void) {
         guard let url = URL(string: imageURL) else { return }
         var request = URLRequest(url: url)
-        request.addValue(apiKey, forHTTPHeaderField: httpHeaterFieldForApiKey)
+        request.addValue(Constants.apiKey, forHTTPHeaderField: Constants.httpHeaterFieldForApiKey)
         
         let task = URLSession.shared.dataTask(with: request) { data, respomse, error in
             if let data = data {
@@ -76,26 +63,5 @@ class NetworkManager {
             }
         }
         task.resume()
-    }
-    
-    
-    private func parseDataToBreedsList(_ data: Data) {
-        let jsonDecoder = JSONDecoder()
-        do {
-            let decodedBreeds = try jsonDecoder.decode([BreedIdAndName].self, from: data)
-            breedsList = decodedBreeds
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func parseDataToBreedDetails(_ data: Data) {
-        let jsonDecoder = JSONDecoder()
-        do {
-            let decodedBreeds = try jsonDecoder.decode([BreedDetails].self, from: data)
-            breedsDetails = decodedBreeds
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
     }
 }
