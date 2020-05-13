@@ -18,8 +18,18 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: Properties
     
     let networkManager = NetworkManager()
-    var breedsList: [BreedForTable] = []
+    let searchController = UISearchController(searchResultsController: nil)
+    var breedsList: [BreedIdAndName] = []
+    var breedsListFiltered: [BreedIdAndName] = []
     var selectedBreedID: String = ""
+    
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
     
     //MARK: - ViewControllerLifeCycle
     
@@ -28,6 +38,12 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.delegate = self
         tableView.dataSource = self
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search breeds"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true //search bar doesn't remains on screen after navigation to another VC
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
@@ -51,27 +67,41 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     // MARK: - Table view data source
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return breedsList.count
+        if isFiltering {
+            return breedsListFiltered.count
+        } else {
+            return breedsList.count
+        }
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "breedsList", for: indexPath)
 
-        cell.textLabel?.text = breedsList[indexPath.row].name
+        let breedName: String
+        if isFiltering {
+            breedName = breedsListFiltered[indexPath.row].name
+        } else {
+            breedName = breedsList[indexPath.row].name
+        }
+        cell.textLabel?.text = breedName
 
         return cell
     }
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-        selectedBreedID = breedsList[indexPath.row].id
+        print(tableView.cellForRow(at: indexPath)?.textLabel?.text)
+        if isFiltering {
+            selectedBreedID = breedsListFiltered[indexPath.row].id
+        } else {
+            selectedBreedID = breedsList[indexPath.row].id
+        }
         performSegue(withIdentifier: "toBreedDetails", sender: self)
         
     }
@@ -90,4 +120,20 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
 
+}
+
+//MARK: - Breed Search
+extension BreedsListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForeSearchText(searchBar.text!)
+    }
+    
+    func filterContentForeSearchText(_ searchText: String){
+        breedsListFiltered = breedsList.filter({ (breedName) -> Bool in
+            return breedName.name.lowercased().contains(searchText.lowercased())
+        })
+        
+        tableView.reloadData()
+    }
 }

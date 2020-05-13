@@ -37,6 +37,9 @@ extension BreedDetailsViewController {
         }
         
         if gestureRecignizer.state == .ended {
+            
+            activityIndicatorImage.isHidden = false
+            activityIndicatorImage.startAnimating()
             networkManager.getBreedDetails(breedID: breedID) { (breedDetails) in
                 self.networkManager.getImage(imageURL: breedDetails.first!.url) { (newImage) in
                     self.imageChangingAnimation(newImage: newImage)
@@ -53,6 +56,9 @@ extension BreedDetailsViewController {
                 self.catsImage.alpha = 0
             }) {_ in
                 self.catsImage.image = newImage
+                
+                self.activityIndicatorImage.stopAnimating()
+                self.activityIndicatorImage.isHidden = true
                 UIView.animate(withDuration: 0.4) {
                     self.catsImage.alpha = 1
                 }

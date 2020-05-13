@@ -19,15 +19,15 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="breedsList" textLabel="ErG-Uw-4vv" style="IBUITableViewCellStyleDefault" id="RWk-aX-GKE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="breedsList" textLabel="ErG-Uw-4vv" style="IBUITableViewCellStyleDefault" id="RWk-aX-GKE">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RWk-aX-GKE" id="t4p-5U-xnQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="351" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ErG-Uw-4vv">
-                                                    <rect key="frame" x="20" y="0.0" width="323" height="43.666667938232422"/>
+                                                    <rect key="frame" x="20" y="0.0" width="355" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -41,8 +41,8 @@
                             <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJX-Rh-aZU">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="v0j-qM-eEH">
-                                        <rect key="frame" x="197" y="352.66666666666669" width="20" height="20"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="v0j-qM-eEH">
+                                        <rect key="frame" x="188.66666666666666" y="344" width="37" height="37"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -94,22 +94,37 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3f6-CD-zbD">
                                                 <rect key="frame" x="15" y="15" width="384" height="1482"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to change image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLy-Wa-VR1">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to get random image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLy-Wa-VR1">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cSO-S5-jir">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AyJ-Ui-GUC">
                                                         <rect key="frame" x="0.0" y="22" width="384" height="384"/>
-                                                        <gestureRecognizers/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cSO-S5-jir">
+                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="384"/>
+                                                                <gestureRecognizers/>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="3IR-px-fv1" appends="YES" id="Hkt-N9-uBm"/>
+                                                                </connections>
+                                                            </imageView>
+                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Zek-ie-r0Y">
+                                                                <rect key="frame" x="182" y="182" width="20" height="20"/>
+                                                            </activityIndicatorView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" secondItem="cSO-S5-jir" secondAttribute="height" multiplier="1:1" id="2vV-5b-7Gd"/>
+                                                            <constraint firstItem="cSO-S5-jir" firstAttribute="leading" secondItem="AyJ-Ui-GUC" secondAttribute="leading" id="TjW-h6-p2O"/>
+                                                            <constraint firstAttribute="bottom" secondItem="cSO-S5-jir" secondAttribute="bottom" id="XuQ-3e-QPI"/>
+                                                            <constraint firstItem="cSO-S5-jir" firstAttribute="top" secondItem="AyJ-Ui-GUC" secondAttribute="top" id="YwT-H6-2jT"/>
+                                                            <constraint firstAttribute="trailing" secondItem="cSO-S5-jir" secondAttribute="trailing" id="av0-4e-lQU"/>
+                                                            <constraint firstAttribute="width" secondItem="AyJ-Ui-GUC" secondAttribute="height" multiplier="1:1" id="bOb-kC-xLr"/>
+                                                            <constraint firstItem="Zek-ie-r0Y" firstAttribute="centerX" secondItem="AyJ-Ui-GUC" secondAttribute="centerX" id="gK4-cH-eXV"/>
+                                                            <constraint firstItem="Zek-ie-r0Y" firstAttribute="centerY" secondItem="AyJ-Ui-GUC" secondAttribute="centerY" id="i4z-2j-HUk"/>
                                                         </constraints>
-                                                        <connections>
-                                                            <outletCollection property="gestureRecognizers" destination="3IR-px-fv1" appends="YES" id="Hkt-N9-uBm"/>
-                                                        </connections>
-                                                    </imageView>
+                                                    </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3IL-2w-aBs">
                                                         <rect key="frame" x="0.0" y="416" width="384" height="40"/>
                                                         <constraints>
@@ -923,8 +938,8 @@
                             <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqa-lv-V0q">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ifE-sY-hTM">
-                                        <rect key="frame" x="197" y="352.66666666666669" width="20" height="20"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ifE-sY-hTM">
+                                        <rect key="frame" x="188.66666666666666" y="344" width="37" height="37"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -956,6 +971,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="ifE-sY-hTM" id="xzD-vS-W8a"/>
+                        <outlet property="activityIndicatorImage" destination="Zek-ie-r0Y" id="NGy-Va-KVg"/>
                         <outlet property="breedName" destination="3IL-2w-aBs" id="YpI-mG-Dyj"/>
                         <outlet property="catsImage" destination="cSO-S5-jir" id="Zwi-Ue-fhq"/>
                         <outlet property="shareBarButton" destination="7OL-t0-hPO" id="8W1-GD-N4D"/>

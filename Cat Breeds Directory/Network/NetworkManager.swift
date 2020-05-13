@@ -12,14 +12,14 @@ import UIKit
 class NetworkManager {
     
     //MARK: - Properties
-    let catApiUrl = "https://api.thecatapi.com/v1/"
-    let apiKey = "6500c584-7d69-4cb5-8cd6-c807b1dfc2c9"
-    let httpHeaterFieldForApiKey = "x-api-key"
+    private let catApiUrl = "https://api.thecatapi.com/v1/"
+    private let apiKey = "6500c584-7d69-4cb5-8cd6-c807b1dfc2c9"
+    private let httpHeaterFieldForApiKey = "x-api-key"
     
-    var breedsList: [BreedForTable] = []
-    var breedsDetails: [BreedDetails] = []
+    private var breedsList: [BreedIdAndName] = []
+    private var breedsDetails: [BreedDetails] = []
 
-    typealias BreedsList = ([BreedForTable]) -> Void
+    typealias BreedsList = ([BreedIdAndName]) -> Void
 
     
     
@@ -79,17 +79,17 @@ class NetworkManager {
     }
     
     
-    func parseDataToBreedsList(_ data: Data) {
+    private func parseDataToBreedsList(_ data: Data) {
         let jsonDecoder = JSONDecoder()
         do {
-            let decodedBreeds = try jsonDecoder.decode([BreedForTable].self, from: data)
+            let decodedBreeds = try jsonDecoder.decode([BreedIdAndName].self, from: data)
             breedsList = decodedBreeds
         } catch let error as NSError {
             print(error.localizedDescription)
         }
     }
     
-    func parseDataToBreedDetails(_ data: Data) {
+    private func parseDataToBreedDetails(_ data: Data) {
         let jsonDecoder = JSONDecoder()
         do {
             let decodedBreeds = try jsonDecoder.decode([BreedDetails].self, from: data)

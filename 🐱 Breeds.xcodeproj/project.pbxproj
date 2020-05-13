@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7A1AB9DE24683CF300B5E634 /* AditionalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */; };
-		7A525EAE2464608D004D987C /* BreedForTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAD2464608D004D987C /* BreedForTable.swift */; };
+		7A525EAE2464608D004D987C /* BreedIdAndName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAD2464608D004D987C /* BreedIdAndName.swift */; };
 		7A525EB02465970B004D987C /* EmojiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAF2465970B004D987C /* EmojiManager.swift */; };
 		7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95172245EEAC3008EB7FB /* AppDelegate.swift */; };
 		7AC95175245EEAC3008EB7FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */; };
@@ -25,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AditionalFunctions.swift; sourceTree = "<group>"; };
-		7A525EAD2464608D004D987C /* BreedForTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedForTable.swift; sourceTree = "<group>"; };
+		7A525EAD2464608D004D987C /* BreedIdAndName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedIdAndName.swift; sourceTree = "<group>"; };
 		7A525EAF2465970B004D987C /* EmojiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiManager.swift; sourceTree = "<group>"; };
 		7AC9516F245EEAC3008EB7FB /* 🐱 Breeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "🐱 Breeds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC95172245EEAC3008EB7FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			children = (
 				7AC9518E245F04F4008EB7FB /* Breed.swift */,
 				7AD340412464379A00E956D5 /* BreedDetails.swift */,
-				7A525EAD2464608D004D987C /* BreedForTable.swift */,
+				7A525EAD2464608D004D987C /* BreedIdAndName.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AC9518F245F04F4008EB7FB /* Breed.swift in Sources */,
-				7A525EAE2464608D004D987C /* BreedForTable.swift in Sources */,
+				7A525EAE2464608D004D987C /* BreedIdAndName.swift in Sources */,
 				7ACF829624619A30006B1A0D /* BreedDetailsViewController.swift in Sources */,
 				7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */,
 				7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */,

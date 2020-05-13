@@ -88,6 +88,7 @@ class BreedDetailsViewController: UIViewController {
     
     @IBOutlet weak var uiCoverView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorImage: UIActivityIndicatorView!
     
     //MARK: - Properties
     let networkManager = NetworkManager()
@@ -102,6 +103,8 @@ class BreedDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         activityIndicator.hidesWhenStopped = true
+        activityIndicatorImage.hidesWhenStopped = true
+        activityIndicatorImage.isHidden = true
         
         shareBarButton.isEnabled = false
         
@@ -129,140 +132,146 @@ class BreedDetailsViewController: UIViewController {
             networkManager.getImage(imageURL: imageURL) { (image) in
                 DispatchQueue.main.async {
                     self.catsImage.image = image
-                    if let breed: Breed = self.breedDetails.first?.breeds.first {
-                        self.breedName.text = breed.name
-//                        self.navigationItem.title = breed.name
-                        
-                        //Description
-                        self.valueDescription.text = breed.description
-                        
-                        //Temperament
-                        self.valueTemperament.text = breed.temperament
-                        
-                        //Origin
-                        self.valueOrigin.text = "\(breed.origin ?? self.noInfo) \(self.emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
-                        
-                        //Life Span
-                        self.valueLifeSpan.text = {
-                            if let lifeSpan = breed.lifeSpan {
-                                return "\(lifeSpan) years"
-                            } else {
-                                return self.noInfo
-                            }
-                        }()
-                        
-                        //Weight
-                        self.valueWeightLabel.text = "\(breed.weight.metric ?? self.noInfo) kg  (\(breed.weight.imperial ?? "") lb)"
-                        
-                        
-                        //Adaptability
-                        self.setValueToProgressView(value: breed.adaptability,
-                                                    progressView: self.valueAdaptabilityProgress,
-                                                    noInfolabel: self.valueAdaptabilityLabel,
-                                                    zeroFiveLabelsNumber: 0)
-                        
-                        //Affection level
-                        self.setValueToProgressView(value: breed.affectionLevel,
-                                                    progressView: self.valueAffectionProgress,
-                                                    noInfolabel: self.valueAffectionLabel,
-                                                    zeroFiveLabelsNumber: 1)
-                        
-                        //Cat friendly
-                        self.setValueToProgressView(value: breed.catFriendly,
-                                                    progressView: self.valueCatFriendlyProgress,
-                                                    noInfolabel: self.valueCatFriendlyLabel,
-                                                    zeroFiveLabelsNumber: 2)
-                        //Child friendly
-                        self.setValueToProgressView(value: breed.childFriendly,
-                                                    progressView: self.valueChildFriendlyProgress,
-                                                    noInfolabel: self.valueChildFriendlyLabel,
-                                                    zeroFiveLabelsNumber: 3)
-                        //Dog friendly
-                        self.setValueToProgressView(value: breed.dogFriendly,
-                                                    progressView: self.valueDogFriendlyProgress,
-                                                    noInfolabel: self.valueDogFriendlyLabel,
-                                                    zeroFiveLabelsNumber: 4)
-                        //Energy level
-                        self.setValueToProgressView(value: breed.energyLevel,
-                                                    progressView: self.valueEnergyLevelProgress,
-                                                    noInfolabel: self.valueEnergyLevelLabel,
-                                                    zeroFiveLabelsNumber: 5)
-                        //Grooming
-                        self.setValueToProgressView(value: breed.grooming,
-                                                    progressView: self.valueGroomingProgress,
-                                                    noInfolabel: self.valueGroomingLabel,
-                                                    zeroFiveLabelsNumber: 6)
-                        
-                        //Health issues
-                        self.setValueToProgressView(value: breed.healthIssues,
-                                                    progressView: self.valuehealthIssuesProgress,
-                                                    noInfolabel: self.valuehealthIssuesLabel,
-                                                    zeroFiveLabelsNumber: 7)
-                        
-                        //Intelligence
-                        self.setValueToProgressView(value: breed.intelligence,
-                                                    progressView: self.valueIntelligenceProgress,
-                                                    noInfolabel: self.valueIntelligenceLabel,
-                                                    zeroFiveLabelsNumber: 8)
-                        //Shedding level
-                        self.setValueToProgressView(value: breed.sheddingLevel,
-                                                    progressView: self.valueSheddingLevelProgress,
-                                                    noInfolabel: self.valueSheddingLevelLabel,
-                                                    zeroFiveLabelsNumber: 9)
-                        //Social needs
-                        self.setValueToProgressView(value: breed.socialNeeds,
-                                                    progressView: self.valueSocialNeedsProgress,
-                                                    noInfolabel: self.valueSocialNeedsLabel,
-                                                    zeroFiveLabelsNumber: 10)
-                        
-                        //Stranger friendly
-                        self.setValueToProgressView(value: breed.strangerFriendly,
-                                                    progressView: self.valueStrangerFriendlyProgress,
-                                                    noInfolabel: self.valueStrangerFriendlyLabel,
-                                                    zeroFiveLabelsNumber: 11)
-                        
-                        //Vocalisation
-                        self.setValueToProgressView(value: breed.vocalisation,
-                                                    progressView: self.valueVocalisationProgress,
-                                                    noInfolabel: self.valueVocalisationLabel,
-                                                    zeroFiveLabelsNumber: 12)
-                        
-                        //Indor
-                        self.valueIndor.text = self.binaryToYesNo(number: breed.indoor)
-                        
-                        //Experimental
-                        self.valueExperimentalLabel.text = self.binaryToYesNo(number: breed.experimental)
-                        
-                        //Hairless
-                        self.valueHairlessLabel.text = self.binaryToYesNo(number: breed.experimental)
-                        
-                        //Rare
-                        self.valueRareLabel.text = self.binaryToYesNo(number: breed.rare)
-                        
-                        //Rex
-                        self.valueRexLabel.text = self.binaryToYesNo(number: breed.rex)
-                        
-                        //Suppressed tail
-                        self.valueSuppressedTailLabel.text = self.binaryToYesNo(number: breed.suppressedTail)
-                        
-                        //Short legs
-                        self.valueShortLegsLabel.text = self.binaryToYesNo(number: breed.shortLegs)
-                        
-                        //
-                        self.valueHypoallergenicLabel.text = self.binaryToYesNo(number: breed.hypoallergenic)
-                        
-                        self.shareBarButton.isEnabled = true
-                        self.activityIndicator.stopAnimating()
-                        self.uiCoverView.removeFromSuperview()
-                    }
+                    self.setValuesForValueLabels()
                 }
             }
         }
     }
     
     
-    //MARK: - Support func for UI update
+    //MARK: - Fill Values
     
+    func setValuesForValueLabels(){
+        if let breed: Breed = breedDetails.first?.breeds.first {
+            breedName.text = breed.name
+//                        self.navigationItem.title = breed.name
+            
+            //Description
+            valueDescription.text = breed.description
+            
+            //Temperament
+            valueTemperament.text = breed.temperament
+            
+            //Origin
+            valueOrigin.text = "\(breed.origin ?? noInfo) \(emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
+            
+            //Life Span
+            valueLifeSpan.text = {
+                if let lifeSpan = breed.lifeSpan {
+                    return "\(lifeSpan) years"
+                } else {
+                    return noInfo
+                }
+            }()
+            
+            //Weight
+            valueWeightLabel.text = "\(breed.weight.metric ?? noInfo) kg  (\(breed.weight.imperial ?? "") lb)"
+            
+            
+            //Adaptability
+            setValueToProgressView(value: breed.adaptability,
+                                        progressView: valueAdaptabilityProgress,
+                                        noInfolabel: valueAdaptabilityLabel,
+                                        zeroFiveLabelsNumber: 0)
+            
+            //Affection level
+            setValueToProgressView(value: breed.affectionLevel,
+                                        progressView: valueAffectionProgress,
+                                        noInfolabel: valueAffectionLabel,
+                                        zeroFiveLabelsNumber: 1)
+            
+            //Cat friendly
+            setValueToProgressView(value: breed.catFriendly,
+                                        progressView: valueCatFriendlyProgress,
+                                        noInfolabel: valueCatFriendlyLabel,
+                                        zeroFiveLabelsNumber: 2)
+            //Child friendly
+            setValueToProgressView(value: breed.childFriendly,
+                                        progressView: valueChildFriendlyProgress,
+                                        noInfolabel: valueChildFriendlyLabel,
+                                        zeroFiveLabelsNumber: 3)
+            //Dog friendly
+            setValueToProgressView(value: breed.dogFriendly,
+                                        progressView: valueDogFriendlyProgress,
+                                        noInfolabel: valueDogFriendlyLabel,
+                                        zeroFiveLabelsNumber: 4)
+            //Energy level
+            setValueToProgressView(value: breed.energyLevel,
+                                        progressView: valueEnergyLevelProgress,
+                                        noInfolabel: valueEnergyLevelLabel,
+                                        zeroFiveLabelsNumber: 5)
+            //Grooming
+            setValueToProgressView(value: breed.grooming,
+                                        progressView: valueGroomingProgress,
+                                        noInfolabel: valueGroomingLabel,
+                                        zeroFiveLabelsNumber: 6)
+            
+            //Health issues
+            setValueToProgressView(value: breed.healthIssues,
+                                        progressView: valuehealthIssuesProgress,
+                                        noInfolabel: valuehealthIssuesLabel,
+                                        zeroFiveLabelsNumber: 7)
+            
+            //Intelligence
+            setValueToProgressView(value: breed.intelligence,
+                                        progressView: valueIntelligenceProgress,
+                                        noInfolabel: valueIntelligenceLabel,
+                                        zeroFiveLabelsNumber: 8)
+            //Shedding level
+            setValueToProgressView(value: breed.sheddingLevel,
+                                        progressView: valueSheddingLevelProgress,
+                                        noInfolabel: valueSheddingLevelLabel,
+                                        zeroFiveLabelsNumber: 9)
+            //Social needs
+            setValueToProgressView(value: breed.socialNeeds,
+                                        progressView: valueSocialNeedsProgress,
+                                        noInfolabel: valueSocialNeedsLabel,
+                                        zeroFiveLabelsNumber: 10)
+            
+            //Stranger friendly
+            setValueToProgressView(value: breed.strangerFriendly,
+                                        progressView: valueStrangerFriendlyProgress,
+                                        noInfolabel: valueStrangerFriendlyLabel,
+                                        zeroFiveLabelsNumber: 11)
+            
+            //Vocalisation
+            setValueToProgressView(value: breed.vocalisation,
+                                        progressView: valueVocalisationProgress,
+                                        noInfolabel: valueVocalisationLabel,
+                                        zeroFiveLabelsNumber: 12)
+            
+            //Indor
+            valueIndor.text = binaryToYesNo(number: breed.indoor)
+            
+            //Experimental
+            valueExperimentalLabel.text = binaryToYesNo(number: breed.experimental)
+            
+            //Hairless
+            valueHairlessLabel.text = binaryToYesNo(number: breed.experimental)
+            
+            //Rare
+            valueRareLabel.text = binaryToYesNo(number: breed.rare)
+            
+            //Rex
+            valueRexLabel.text = binaryToYesNo(number: breed.rex)
+            
+            //Suppressed tail
+            valueSuppressedTailLabel.text = binaryToYesNo(number: breed.suppressedTail)
+            
+            //Short legs
+            valueShortLegsLabel.text = binaryToYesNo(number: breed.shortLegs)
+            
+            //
+            valueHypoallergenicLabel.text = binaryToYesNo(number: breed.hypoallergenic)
+            
+            shareBarButton.isEnabled = true
+            activityIndicator.stopAnimating()
+            uiCoverView.removeFromSuperview()
+        }
+    }
+    
+    
+    //MARK: - Support func for UI update
     // set yes or no instead of 1 or 0 numbers
     func binaryToYesNo(number: Int?) -> String {
         guard let binar = number else { return noInfo }
@@ -308,16 +317,4 @@ class BreedDetailsViewController: UIViewController {
             noInfolabel.text = self.noInfo
         }
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

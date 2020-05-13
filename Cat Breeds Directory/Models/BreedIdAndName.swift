@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BreedForTable: Decodable {
+struct BreedIdAndName: Decodable {
     let id: String
     let name: String
 }
