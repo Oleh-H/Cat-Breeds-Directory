@@ -115,9 +115,6 @@ class BreedDetailsViewController: UIViewController {
         catsImage.layer.masksToBounds = false
         
         activityIndicator.startAnimating()
-//        imageContainerView.layer.cornerRadius = 15
-//        catsImage.clipsToBounds = true
-//        catsImage.layer.cornerRadius = 15
         
         navigationController?.navigationBar.prefersLargeTitles = false
         networkManager.getBreedDetails(breedID: breedID) { [weak self] details in            
@@ -143,8 +140,8 @@ class BreedDetailsViewController: UIViewController {
     
     func setValuesForValueLabels() {
         guard let breed: Breed = breedDetails.first?.breeds.first else {return}
+        
         breedName.text = breed.name
-//                        self.navigationItem.title = breed.name
         
         //Description
         valueDescription.text = breed.description
@@ -241,28 +238,28 @@ class BreedDetailsViewController: UIViewController {
                                     zeroFiveLabelsNumber: 12)
         
         //Indor
-        valueIndor.text = binaryToYesNo(number: breed.indoor)
+        valueIndor.text = StringBinar(binarInt: breed.indoor).value
         
         //Experimental
-        valueExperimentalLabel.text = binaryToYesNo(number: breed.experimental)
+        valueExperimentalLabel.text = StringBinar(binarInt: breed.experimental).value
         
         //Hairless
-        valueHairlessLabel.text = binaryToYesNo(number: breed.experimental)
+        valueHairlessLabel.text = StringBinar(binarInt: breed.hairless).value
         
         //Rare
-        valueRareLabel.text = binaryToYesNo(number: breed.rare)
+        valueRareLabel.text = StringBinar(binarInt: breed.rare).value
         
         //Rex
-        valueRexLabel.text = binaryToYesNo(number: breed.rex)
+        valueRexLabel.text = StringBinar(binarInt: breed.rex).value
         
         //Suppressed tail
-        valueSuppressedTailLabel.text = binaryToYesNo(number: breed.suppressedTail)
+        valueSuppressedTailLabel.text = StringBinar(binarInt: breed.suppressedTail).value
         
         //Short legs
-        valueShortLegsLabel.text = binaryToYesNo(number: breed.shortLegs)
+        valueShortLegsLabel.text = StringBinar(binarInt: breed.shortLegs).value
         
         //
-        valueHypoallergenicLabel.text = binaryToYesNo(number: breed.hypoallergenic)
+        valueHypoallergenicLabel.text = StringBinar(binarInt: breed.hypoallergenic).value
         
         shareBarButton.isEnabled = true
         activityIndicator.stopAnimating()
@@ -270,50 +267,19 @@ class BreedDetailsViewController: UIViewController {
     }
     
     
-    //MARK: - Support func for UI update
-    // set yes or no instead of 1 or 0 numbers
-    func binaryToYesNo(number: Int?) -> String {
-        guard let binar = number else { return noInfo }
-        switch binar {
-        case 1:
-            return "Yes"
-        default:
-            return "No"
-        }
+    @IBAction func cfaURLTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.cfaURL, sender: sender)
     }
     
-    
-    //convert 0-5 int value to 1/5 progress steps
-    func intToProgressLevel(level: Int) -> (level: Float, color:UIColor) {
-        switch level {
-        case 0:
-            return (0.0, UIColor.systemYellow)
-        case 1:
-            return (0.2, UIColor.systemYellow)
-        case 2:
-            return (0.4, UIColor.systemOrange)
-        case 3:
-            return (0.6, UIColor.systemOrange)
-        case 4:
-            return (0.8, UIColor.systemRed)
-        default:
-            return (1.0, UIColor.systemRed)
-        }
+    @IBAction func vcaHospitalsTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vcahospitalsURL, sender: sender)
     }
     
+    @IBAction func vetStreetTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vetstreetURL, sender: sender)
+    }
     
-    // set value to progress view if value is not nil. If it is nil, function hide progressView, labels 0 and 5 and displays no info label
-    func setValueToProgressView(value: Int?, progressView: UIProgressView, noInfolabel: UILabel, zeroFiveLabelsNumber: Int) {
-        if let value = value {
-            let progressLevel = intToProgressLevel(level: value)
-            progressView.setProgress(progressLevel.level, animated: false)
-//            progressView.tintColor = progressLevel.color
-        } else {
-            progressView.isHidden = true
-            zeroLabel[zeroFiveLabelsNumber].isHidden = true
-            fiveLabel[zeroFiveLabelsNumber].isHidden = true
-            noInfolabel.isHidden = false
-            noInfolabel.text = self.noInfo
-        }
+    @IBAction func wikipediaTap(_ sender: UIButton) {
+        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.wikipediaURL, sender: sender)
     }
 }

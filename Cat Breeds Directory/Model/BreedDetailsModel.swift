@@ -1,38 +1,17 @@
 //
-//  NetworkManager.swift
+//  BreedDetailsModel.swift
 //  Cat Breeds Directory
 //
-//  Created by Oleh Haistruk on 03.05.2020.
+//  Created by Oleh Haistruk on 15.05.2020.
 //  Copyright © 2020 Oleh Haistruk. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class NetworkManager {
+class BreedDetailsModel {
     
-    //MARK: - Properties
     let jsonDataParser = JsonDataParser()
-    typealias BreedsList = ([BreedIdAndName]) -> Void
-
-    
-    func getBreedsList(completion: @escaping BreedsList) {
-        let catApiBreeds: String = "\(Constants.catApiUrl)breeds"
-        guard let url = URL(string: catApiBreeds) else {return}
-        var request = URLRequest(url: url)
-        request.addValue(Constants.apiKey, forHTTPHeaderField: Constants.httpHeaterFieldForApiKey)
-
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let data = data {
-//                let string = String(bytes: data, encoding: .utf8)
-                let breedsList = self.jsonDataParser.parseDataToBreedsList(data)
-                completion(breedsList)
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        task.resume()
-    }
     
     func getBreedDetails(breedID: String, completion: @escaping ([BreedDetails]) -> Void ) {
         let catApiBreed: String = "\(Constants.catApiUrl)images/search?breed_id=\(breedID)"
@@ -50,6 +29,28 @@ class NetworkManager {
         }
         task.resume()
     }
+    
+//    //MARK: - Support func for UI update
+//
+//    // set value to progress view if value is not nil. If it is nil, function hide progressView, labels 0 and 5 and displays no info label
+//    func setValueToProgressView(value: Int?, progressView: UIProgressView, noInfolabel: UILabel, zeroFiveLabelsNumber: Int) {
+//        guard let value = value else {
+//            progressView.isHidden = true
+//            zeroLabel[zeroFiveLabelsNumber].isHidden = true
+//            fiveLabel[zeroFiveLabelsNumber].isHidden = true
+//            noInfolabel.isHidden = false
+//            noInfolabel.text = self.noInfo
+//            return
+//        }
+//        let progressLevel = IntDecimal(intFrom0To5: value)
+//        progressView.setProgress(progressLevel.value, animated: false)
+//    }
+//    
+//    func <#name#>(<#parameters#>) -> <#return type#> {
+//        <#function body#>
+//    }
+    
+    
     
     func getImage(imageURL: String, completion: @escaping (UIImage) -> Void) {
         guard let url = URL(string: imageURL) else { return }

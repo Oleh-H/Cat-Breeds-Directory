@@ -8,8 +8,9 @@
 
 import UIKit
 
-class BreedsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BreedsListViewController: UIViewController, UISearchResultsUpdating {
     
+    //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var uiCoverWiew: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -17,7 +18,7 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     //MARK: Properties
     
-    let networkManager = NetworkManager()
+    let breedListModel = BreedListModel()
     let searchController = UISearchController(searchResultsController: nil)
     var breedsList: [BreedIdAndName] = []
     var breedsListFiltered: [BreedIdAndName] = []
@@ -48,7 +49,7 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         
-        networkManager.getBreedsList(completion: { [weak self] breeds in
+        breedListModel.getBreedsList(completion: { [weak self] breeds in
             self?.breedsList = breeds
 //            print(breeds)
             DispatchQueue.main.async {
@@ -57,7 +58,6 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self?.uiCoverWiew.removeFromSuperview()
             }
         })
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,12 +65,24 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
+
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "toBreedDetails" else {return}
+        guard let destination = segue.destination as? BreedDetailsViewController else {
+            return
+        }
+        
+        destination.breedID = selectedBreedID
+    }
+}
+
+
+extension BreedsListViewController: UITableViewDataSource {
     // MARK: - Table view data source
-
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
             return breedsListFiltered.count
@@ -93,10 +105,12 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         return cell
     }
-    
+}
 
+
+extension BreedsListViewController: UITableViewDelegate {
+// MARK: - Table View Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(tableView.cellForRow(at: indexPath)?.textLabel?.text)
         if isFiltering {
             selectedBreedID = breedsListFiltered[indexPath.row].id
         } else {
@@ -104,36 +118,5 @@ class BreedsListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         performSegue(withIdentifier: "toBreedDetails", sender: self)
         
-    }
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "toBreedDetails" else {return}
-        guard let destination = segue.destination as? BreedDetailsViewController else {
-            return
-        }
-        
-        destination.breedID = selectedBreedID
-    }
-    
-
-}
-
-//MARK: - Breed Search
-extension BreedsListViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        filterContentForeSearchText(searchBar.text!)
-    }
-    
-    func filterContentForeSearchText(_ searchText: String){
-        breedsListFiltered = breedsList.filter({ (breedName) -> Bool in
-            return breedName.name.lowercased().contains(searchText.lowercased())
-        })
-        
-        tableView.reloadData()
     }
 }

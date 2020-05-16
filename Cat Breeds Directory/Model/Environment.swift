@@ -1,5 +1,5 @@
 //
-//  Enwironment.swift
+//  Environment.swift
 //  Cat Breeds Directory
 //
 //  Created by Oleh Haistruk on 13.05.2020.
@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct Constants {
     static let catApiUrl = "https://api.thecatapi.com/v1/"
     static let apiKey = "6500c584-7d69-4cb5-8cd6-c807b1dfc2c9"

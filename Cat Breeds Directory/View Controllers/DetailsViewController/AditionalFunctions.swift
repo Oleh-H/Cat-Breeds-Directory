@@ -14,7 +14,23 @@ extension BreedDetailsViewController {
     
     
     //MARK: - Share button
-    // Share image, name, temperament and description
+    /**
+     Present `UIActivityViewController` to share breed details of the view.
+     
+     `UIActivityViewController` appear to share current:
+     
+         * Image
+         * Breed name with flag emoji of the breed origin
+         * Breed temperament
+         * Breed description
+     
+     - Important:
+     Text composed to single string after the image.
+     
+     - Parameters:
+        - sender: UIBarButtonItem
+     
+     */
     @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
         guard let image = catsImage.image,
             let name = breedDetails.first?.breeds.first?.name,
@@ -29,8 +45,27 @@ extension BreedDetailsViewController {
     }
     
     
+    //MARK: - Support func for UI update
+
+    // set value to progress view if value is not nil. If it is nil, function hide progressView, labels 0 and 5 and displays no info label
+    func setValueToProgressView(value: Int?, progressView: UIProgressView, noInfolabel: UILabel, zeroFiveLabelsNumber: Int) {
+        guard let value = value else {
+            progressView.isHidden = true
+            zeroLabel[zeroFiveLabelsNumber].isHidden = true
+            fiveLabel[zeroFiveLabelsNumber].isHidden = true
+            noInfolabel.isHidden = false
+            noInfolabel.text = self.noInfo
+            return
+        }
+        let progressLevel = IntDecimal(intFrom0To5: value)
+        progressView.setProgress(progressLevel.value, animated: false)
+    }
+    
+    
     //MARK: Get another Image
-    //load and display new  breed image on tap
+    ///Load and display new breed image on tap
+    ///
+    ///`tapToChangeLabel` - get clear color after firs tap on the image.
     @IBAction func imageTapped(_ gestureRecignizer: UITapGestureRecognizer) {
         guard gestureRecignizer.view != nil else {
             return
@@ -80,22 +115,4 @@ extension BreedDetailsViewController {
             present(safariViewController, animated: true, completion: nil)
         }
     }
-    
-    
-    @IBAction func cfaURLTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.cfaURL, sender: sender)
-    }
-    
-    @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vcahospitalsURL, sender: sender)
-    }
-    
-    @IBAction func vetStreetTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vetstreetURL, sender: sender)
-    }
-    
-    @IBAction func wikipediaTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.wikipediaURL, sender: sender)
-    }
-    
 }
