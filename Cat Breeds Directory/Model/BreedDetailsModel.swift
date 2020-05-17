@@ -124,13 +124,20 @@ class BreedDetailsModel {
     }
     
     
-    func checkURLExisting(url: String?) -> Bool {
-        guard url != nil else {return false}
+    //MARK: Safari View Controller
+    /**
+     Check if string exists and return `Bool`
+     - !nil = true
+     - nil = false
+     */
+    func ifStringIsNotNil(string: String?) -> Bool {
+        guard string != nil else {return false}
         return true
     }
     
-    //MARK: Safari View Controller
-    //Present links in Safari ViewController
+    /**
+     Return Safari ViewController with added `URL`
+     */
     func prepareSafariVCForUrl(url: String) -> SFSafariViewController {
         let url = URL(string: url)
         let safariViewController = SFSafariViewController(url: url!)

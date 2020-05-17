@@ -63,6 +63,7 @@ class BreedDetailsViewController: UIViewController {
     
     var breedID: String = ""
     var breedDetails: [BreedDetails] = []
+    var breed: Breed?
     
     
     //MARK: - ViewController life cycle
@@ -86,6 +87,7 @@ class BreedDetailsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         model.getBreedDetails(breedID: breedID) { [weak self] details in
             self?.breedDetails = details
+            self?.breed = details.first?.breeds.first
             self?.updateUI(details: details)
         }
     }
@@ -106,7 +108,7 @@ class BreedDetailsViewController: UIViewController {
     //MARK: - Fill Values
     
     func setValuesForValueLabels() {
-        guard let breed: Breed = breedDetails.first?.breeds.first else {return}
+        guard let breed = breed else {return}
         
         breedName.text = breed.name
         
@@ -207,13 +209,13 @@ class BreedDetailsViewController: UIViewController {
         //
         valueHypoallergenicLabel.text = StringBinar(binarInt: breed.hypoallergenic).value
         
-        cfaButton.isEnabled = model.checkURLExisting(url: breed.cfaURL)
+        cfaButton.isEnabled = model.ifStringIsNotNil(string: breed.cfaURL)
         
-        vcaHospitalsButton.isEnabled = model.checkURLExisting(url: breed.vcahospitalsURL)
+        vcaHospitalsButton.isEnabled = model.ifStringIsNotNil(string: breed.vcahospitalsURL)
         
-        vetstreetButton.isEnabled = model.checkURLExisting(url: breed.vetstreetURL)
+        vetstreetButton.isEnabled = model.ifStringIsNotNil(string: breed.vetstreetURL)
         
-        wikipediaButton.isEnabled = model.checkURLExisting(url: breed.wikipediaURL)
+        wikipediaButton.isEnabled = model.ifStringIsNotNil(string: breed.wikipediaURL)
         
         shareBarButton.isEnabled = true
         activityIndicator.stopAnimating()
@@ -222,18 +224,18 @@ class BreedDetailsViewController: UIViewController {
     
     
     @IBAction func cfaURLTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breedDetails.first?.breeds.first?.cfaURL)
+        presentSafariVC(urlString: breed?.cfaURL)
     }
     
     @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breedDetails.first?.breeds.first?.vcahospitalsURL)
+        presentSafariVC(urlString: breed?.vcahospitalsURL)
     }
     
     @IBAction func vetStreetTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breedDetails.first?.breeds.first?.vetstreetURL)
+        presentSafariVC(urlString: breed?.vetstreetURL)
     }
     
     @IBAction func wikipediaTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breedDetails.first?.breeds.first?.wikipediaURL)
+        presentSafariVC(urlString: breed?.wikipediaURL)
     }
 }
