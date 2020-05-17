@@ -8,8 +8,76 @@
 
 import Foundation
 import UIKit
+import SafariServices
 
 class BreedDetailsModel {
+    
+//MARK: Properties
+    
+    let noInfoString = "No information available"
+
+    var label0: UILabel {
+        let label = UILabel()
+        label.text = "0"
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        return label
+    }
+    
+    var label5: UILabel {
+        let label = UILabel()
+        label.text = "5"
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        return label
+    }
+    
+    
+    func displayVauesFom1To5(value: Int?) -> UIStackView {
+        
+        let stackView: UIStackView = {
+            let stack = UIStackView()
+            stack.axis = .horizontal
+            stack.alignment = .center
+            stack.spacing = 8
+            return stack
+        }()
+        
+        let progressView = UIProgressView()
+        guard let value = value else {
+            let noInfo = setNoInfoLabelToStack()
+            return noInfo
+        }
+        progressView.setProgress(setValueToProgressView(value: value), animated: false)
+        stackView.addArrangedSubview(label0)
+        stackView.addArrangedSubview(progressView)
+        stackView.addArrangedSubview(label5)
+        return stackView
+    }
+    
+    private func setValueToProgressView(value: Int) -> Float {
+        let result = IntDecimal(intFrom0To5: value)
+        return result.value
+    }
+    
+    private func setNoInfoLabelToStack() -> UIStackView {
+        let noInfoLabel: UILabel = {
+            let label = UILabel()
+            label.text = noInfoString
+            return label
+        }()
+        
+        let stackView: UIStackView = {
+                   let stack = UIStackView()
+                   stack.axis = .horizontal
+                   stack.alignment = .center
+                   stack.spacing = 8
+                   return stack
+               }()
+        
+        stackView.addArrangedSubview(noInfoLabel)
+        return stackView
+    }
+
+    //MARK: - Network
     
     let jsonDataParser = JsonDataParser()
     
@@ -30,26 +98,6 @@ class BreedDetailsModel {
         task.resume()
     }
     
-//    //MARK: - Support func for UI update
-//
-//    // set value to progress view if value is not nil. If it is nil, function hide progressView, labels 0 and 5 and displays no info label
-//    func setValueToProgressView(value: Int?, progressView: UIProgressView, noInfolabel: UILabel, zeroFiveLabelsNumber: Int) {
-//        guard let value = value else {
-//            progressView.isHidden = true
-//            zeroLabel[zeroFiveLabelsNumber].isHidden = true
-//            fiveLabel[zeroFiveLabelsNumber].isHidden = true
-//            noInfolabel.isHidden = false
-//            noInfolabel.text = self.noInfo
-//            return
-//        }
-//        let progressLevel = IntDecimal(intFrom0To5: value)
-//        progressView.setProgress(progressLevel.value, animated: false)
-//    }
-//    
-//    func <#name#>(<#parameters#>) -> <#return type#> {
-//        <#function body#>
-//    }
-    
     
     
     func getImage(imageURL: String, completion: @escaping (UIImage) -> Void) {
@@ -64,5 +112,28 @@ class BreedDetailsModel {
             }
         }
         task.resume()
+    }
+    
+    func getAnotherImage(breedID: String, completion: @escaping (UIImage) -> Void) {
+        getBreedDetails(breedID: breedID) { (details) in
+            guard let imageURL = details.first?.url else {return}
+            self.getImage(imageURL: imageURL) { (image) in
+                completion(image)
+            }
+        }
+    }
+    
+    
+    func checkURLExisting(url: String?) -> Bool {
+        guard url != nil else {return false}
+        return true
+    }
+    
+    //MARK: Safari View Controller
+    //Present links in Safari ViewController
+    func prepareSafariVCForUrl(url: String) -> SFSafariViewController {
+        let url = URL(string: url)
+        let safariViewController = SFSafariViewController(url: url!)
+        return safariViewController
     }
 }

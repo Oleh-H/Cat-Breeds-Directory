@@ -7,8 +7,12 @@
 //
 
 import Foundation
-
+/**
+ Contains parsers of JSON data into determined type of data.
+ */
 class JsonDataParser {
+    
+    
     func parseDataToBreedsList(_ data: Data) -> [BreedIdAndName] {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase

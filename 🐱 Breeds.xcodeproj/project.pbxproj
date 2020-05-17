@@ -23,7 +23,6 @@
 		7AC9517F245EEAC9008EB7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AC9517E245EEAC9008EB7FB /* Assets.xcassets */; };
 		7AC95182245EEAC9008EB7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */; };
 		7AC9518A245EED24008EB7FB /* BreedsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95189245EED24008EB7FB /* BreedsListViewController.swift */; };
-		7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */; };
 		7AC9518F245F04F4008EB7FB /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9518E245F04F4008EB7FB /* Breed.swift */; };
 		7ACF829624619A30006B1A0D /* BreedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */; };
 		7AD340422464379A00E956D5 /* BreedDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD340412464379A00E956D5 /* BreedDetails.swift */; };
@@ -48,7 +47,6 @@
 		7AC95181245EEAC9008EB7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AC95183245EEAC9008EB7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AC95189245EED24008EB7FB /* BreedsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsListViewController.swift; sourceTree = "<group>"; };
-		7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7AC9518E245F04F4008EB7FB /* Breed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Breed.swift; sourceTree = "<group>"; };
 		7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetailsViewController.swift; sourceTree = "<group>"; };
 		7AD340412464379A00E956D5 /* BreedDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetails.swift; sourceTree = "<group>"; };
@@ -74,13 +72,13 @@
 			path = DetailsViewController;
 			sourceTree = "<group>";
 		};
-		7A6B8E7B2466A5E3001EFB30 /* Network */ = {
+		7AB3496F24702EC4002AAFB7 /* BreedsList */ = {
 			isa = PBXGroup;
 			children = (
-				7AC9518B245EEDBC008EB7FB /* NetworkManager.swift */,
-				7A5AF28D246C728800E689E8 /* JsonDataParser.swift */,
+				7AC95189245EED24008EB7FB /* BreedsListViewController.swift */,
+				7AB3493C246E9A3A002AAFB7 /* BreedsListSearch.swift */,
 			);
-			path = Network;
+			path = BreedsList;
 			sourceTree = "<group>";
 		};
 		7AC95166245EEAC3008EB7FB = {
@@ -122,8 +120,8 @@
 				7AC9518E245F04F4008EB7FB /* Breed.swift */,
 				7AD340412464379A00E956D5 /* BreedDetails.swift */,
 				7A525EAD2464608D004D987C /* BreedIdAndName.swift */,
-				7A6B8E7B2466A5E3001EFB30 /* Network */,
 				7A5AF28F246D629500E689E8 /* IntToValueConvertion.swift */,
+				7A5AF28D246C728800E689E8 /* JsonDataParser.swift */,
 				7A525EAF2465970B004D987C /* EmojiManager.swift */,
 				7AB3493E246ED796002AAFB7 /* BreedListModel.swift */,
 				7AB34940246ED830002AAFB7 /* BreedDetailsModel.swift */,
@@ -134,8 +132,7 @@
 		7ACF8294246199E4006B1A0D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7AC95189245EED24008EB7FB /* BreedsListViewController.swift */,
-				7AB3493C246E9A3A002AAFB7 /* BreedsListSearch.swift */,
+				7AB3496F24702EC4002AAFB7 /* BreedsList */,
 				7A1AB9DC24683CAE00B5E634 /* DetailsViewController */,
 			);
 			path = "View Controllers";
@@ -217,7 +214,6 @@
 				7AB3493D246E9A3A002AAFB7 /* BreedsListSearch.swift in Sources */,
 				7A525EAE2464608D004D987C /* BreedIdAndName.swift in Sources */,
 				7ACF829624619A30006B1A0D /* BreedDetailsViewController.swift in Sources */,
-				7AC9518C245EEDBC008EB7FB /* NetworkManager.swift in Sources */,
 				7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */,
 				7AC9518A245EED24008EB7FB /* BreedsListViewController.swift in Sources */,
 				7A5AF290246D629500E689E8 /* IntToValueConvertion.swift in Sources */,
@@ -382,7 +378,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "OG.Cat-Breeds-Directory";
 				PRODUCT_NAME = "🐱 Breeds";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -400,7 +396,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "OG.Cat-Breeds-Directory";
 				PRODUCT_NAME = "🐱 Breeds";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -45,21 +45,6 @@ extension BreedDetailsViewController {
     }
     
     
-    //MARK: - Support func for UI update
-
-    // set value to progress view if value is not nil. If it is nil, function hide progressView, labels 0 and 5 and displays no info label
-    func setValueToProgressView(value: Int?, progressView: UIProgressView, noInfolabel: UILabel, zeroFiveLabelsNumber: Int) {
-        guard let value = value else {
-            progressView.isHidden = true
-            zeroLabel[zeroFiveLabelsNumber].isHidden = true
-            fiveLabel[zeroFiveLabelsNumber].isHidden = true
-            noInfolabel.isHidden = false
-            noInfolabel.text = self.noInfo
-            return
-        }
-        let progressLevel = IntDecimal(intFrom0To5: value)
-        progressView.setProgress(progressLevel.value, animated: false)
-    }
     
     
     //MARK: Get another Image
@@ -75,10 +60,8 @@ extension BreedDetailsViewController {
             
             activityIndicatorImage.isHidden = false
             activityIndicatorImage.startAnimating()
-            networkManager.getBreedDetails(breedID: breedID) { (breedDetails) in
-                self.networkManager.getImage(imageURL: breedDetails.first!.url) { (newImage) in
-                    self.imageChangingAnimation(newImage: newImage)
-                }
+            model.getAnotherImage(breedID: breedID) { (newImage) in
+                self.imageChangingAnimation(newImage: newImage)
             }
         }
         tapToChangeLabel.textColor = .clear
@@ -105,14 +88,8 @@ extension BreedDetailsViewController {
     
     //MARK: Safari View Controller
     //Present links in Safari ViewController
-    func presentSafariVCForUrl(urlString: String?, sender: UIButton) {
-        guard let cfaURLString = urlString else {
-            sender.isEnabled = false
-            return
-        }
-        if let url = URL(string: cfaURLString) {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
+    func presentSafariVC(urlString: String?) {
+        let safariViewController = model.prepareSafariVCForUrl(url: urlString!)
+        present(safariViewController, animated: true, completion: nil)
     }
 }

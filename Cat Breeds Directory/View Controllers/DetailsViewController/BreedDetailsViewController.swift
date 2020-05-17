@@ -18,85 +18,52 @@ class BreedDetailsViewController: UIViewController {
     @IBOutlet weak var breedName: UILabel!
     
     @IBOutlet weak var valueTemperament: UILabel!
-    
     @IBOutlet weak var valueOrigin: UILabel!
-    
     @IBOutlet weak var valueDescription: UILabel!
-    
     @IBOutlet weak var valueLifeSpan: UILabel!
-    
     @IBOutlet weak var valueWeightLabel: UILabel!
-    
     @IBOutlet weak var valueIndor: UILabel!
     
-    @IBOutlet weak var valueAdaptabilityProgress: UIProgressView!
-    @IBOutlet weak var valueAdaptabilityLabel: UILabel!
+    @IBOutlet weak var adaptabilityStack: UIStackView!
+    @IBOutlet weak var affectionStack: UIStackView!
+    @IBOutlet weak var catFriendlyStack: UIStackView!
+    @IBOutlet weak var childFriendlyStack: UIStackView!
+    @IBOutlet weak var dogFriendlyStack: UIStackView!
+    @IBOutlet weak var energyLevelStack: UIStackView!
+    @IBOutlet weak var groomingStack: UIStackView!
+    @IBOutlet weak var healthIssuesStack: UIStackView!
+    @IBOutlet weak var inteligenceStack: UIStackView!
+    @IBOutlet weak var sheddingLevelStack: UIStackView!
+    @IBOutlet weak var socialNeedsStack: UIStackView!
+    @IBOutlet weak var strangerFriendlyStack: UIStackView!
+    @IBOutlet weak var vocalisationStack: UIStackView!
     
-    @IBOutlet weak var valueAffectionProgress: UIProgressView!
-    @IBOutlet weak var valueAffectionLabel: UILabel!
-    
-    @IBOutlet weak var valueCatFriendlyProgress: UIProgressView!
-    @IBOutlet weak var valueCatFriendlyLabel: UILabel!
-    
-    @IBOutlet weak var valueChildFriendlyProgress: UIProgressView!
-    @IBOutlet weak var valueChildFriendlyLabel: UILabel!
-    
-    @IBOutlet weak var valueDogFriendlyProgress: UIProgressView!
-    @IBOutlet weak var valueDogFriendlyLabel: UILabel!
-    
-    @IBOutlet weak var valueEnergyLevelProgress: UIProgressView!
-    @IBOutlet weak var valueEnergyLevelLabel: UILabel!
-    
-    @IBOutlet weak var valueGroomingProgress: UIProgressView!
-    @IBOutlet weak var valueGroomingLabel: UILabel!
-    
-    @IBOutlet weak var valuehealthIssuesProgress: UIProgressView!
-    @IBOutlet weak var valuehealthIssuesLabel: UILabel!
-    
-    @IBOutlet weak var valueIntelligenceProgress: UIProgressView!
-    @IBOutlet weak var valueIntelligenceLabel: UILabel!
-    
-    @IBOutlet weak var valueSheddingLevelProgress: UIProgressView!
-    @IBOutlet weak var valueSheddingLevelLabel: UILabel!
-    
-    @IBOutlet weak var valueSocialNeedsProgress: UIProgressView!
-    @IBOutlet weak var valueSocialNeedsLabel: UILabel!
-    
-    @IBOutlet weak var valueStrangerFriendlyProgress: UIProgressView!
-    @IBOutlet weak var valueStrangerFriendlyLabel: UILabel!
-    
-    @IBOutlet weak var valueVocalisationProgress: UIProgressView!
-    @IBOutlet weak var valueVocalisationLabel: UILabel!
     
     @IBOutlet weak var valueExperimentalLabel: UILabel!
-    
     @IBOutlet weak var valueHairlessLabel: UILabel!
-    
     @IBOutlet weak var valueRareLabel: UILabel!
-    
     @IBOutlet weak var valueRexLabel: UILabel!
-    
     @IBOutlet weak var valueSuppressedTailLabel: UILabel!
-    
     @IBOutlet weak var valueShortLegsLabel: UILabel!
-    
     @IBOutlet weak var valueHypoallergenicLabel: UILabel!
-    
-    @IBOutlet var zeroLabel: [UILabel]!
-    @IBOutlet var fiveLabel: [UILabel]!
-    
     
     @IBOutlet weak var uiCoverView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var activityIndicatorImage: UIActivityIndicatorView!
     
+    @IBOutlet weak var cfaButton: UIButton!
+    @IBOutlet weak var vcaHospitalsButton: UIButton!
+    @IBOutlet weak var vetstreetButton: UIButton!
+    @IBOutlet weak var wikipediaButton: UIButton!
+    
+    
     //MARK: - Properties
-    let networkManager = NetworkManager()
     let emojiManager = EmojiManager()
+    let model = BreedDetailsModel()
     
     var breedID: String = ""
     var breedDetails: [BreedDetails] = []
-    let noInfo = "No information available"
+    
     
     //MARK: - ViewController life cycle
     override func viewDidLoad() {
@@ -117,7 +84,7 @@ class BreedDetailsViewController: UIViewController {
         activityIndicator.startAnimating()
         
         navigationController?.navigationBar.prefersLargeTitles = false
-        networkManager.getBreedDetails(breedID: breedID) { [weak self] details in            
+        model.getBreedDetails(breedID: breedID) { [weak self] details in
             self?.breedDetails = details
             self?.updateUI(details: details)
         }
@@ -126,7 +93,7 @@ class BreedDetailsViewController: UIViewController {
     //MARK: - UI updating
     func updateUI(details: [BreedDetails]) {
         if let imageURL = details.first?.url {
-            networkManager.getImage(imageURL: imageURL) { (image) in
+            model.getImage(imageURL: imageURL) { (image) in
                 DispatchQueue.main.async {
                     self.catsImage.image = image
                     self.setValuesForValueLabels()
@@ -150,92 +117,71 @@ class BreedDetailsViewController: UIViewController {
         valueTemperament.text = breed.temperament
         
         //Origin
-        valueOrigin.text = "\(breed.origin ?? noInfo) \(emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
+        valueOrigin.text = "\(breed.origin ?? model.noInfoString) \(emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
         
         //Life Span
         valueLifeSpan.text = {
             if let lifeSpan = breed.lifeSpan {
                 return "\(lifeSpan) years"
             } else {
-                return noInfo
+                return model.noInfoString
             }
         }()
         
         //Weight
-        valueWeightLabel.text = "\(breed.weight.metric ?? noInfo) kg  (\(breed.weight.imperial ?? "") lb)"
-        
+        valueWeightLabel.text = "\(breed.weight.metric ?? model.noInfoString) kg  (\(breed.weight.imperial ?? "") lb)"
         
         //Adaptability
-        setValueToProgressView(value: breed.adaptability,
-                                    progressView: valueAdaptabilityProgress,
-                                    noInfolabel: valueAdaptabilityLabel,
-                                    zeroFiveLabelsNumber: 0)
+        let adaptability = model.displayVauesFom1To5(value: breed.adaptability)
+        adaptabilityStack.addArrangedSubview(adaptability)
         
         //Affection level
-        setValueToProgressView(value: breed.affectionLevel,
-                                    progressView: valueAffectionProgress,
-                                    noInfolabel: valueAffectionLabel,
-                                    zeroFiveLabelsNumber: 1)
+        let affection = model.displayVauesFom1To5(value: breed.affectionLevel)
+        affectionStack.addArrangedSubview(affection)
         
         //Cat friendly
-        setValueToProgressView(value: breed.catFriendly,
-                                    progressView: valueCatFriendlyProgress,
-                                    noInfolabel: valueCatFriendlyLabel,
-                                    zeroFiveLabelsNumber: 2)
+        let catFriendly = model.displayVauesFom1To5(value: breed.catFriendly)
+        catFriendlyStack.addArrangedSubview(catFriendly)
+
         //Child friendly
-        setValueToProgressView(value: breed.childFriendly,
-                                    progressView: valueChildFriendlyProgress,
-                                    noInfolabel: valueChildFriendlyLabel,
-                                    zeroFiveLabelsNumber: 3)
+        let childFriendly = model.displayVauesFom1To5(value: breed.childFriendly)
+        childFriendlyStack.addArrangedSubview(childFriendly)
+
         //Dog friendly
-        setValueToProgressView(value: breed.dogFriendly,
-                                    progressView: valueDogFriendlyProgress,
-                                    noInfolabel: valueDogFriendlyLabel,
-                                    zeroFiveLabelsNumber: 4)
+        let dogFriendly = model.displayVauesFom1To5(value: breed.dogFriendly)
+        dogFriendlyStack.addArrangedSubview(dogFriendly)
+
         //Energy level
-        setValueToProgressView(value: breed.energyLevel,
-                                    progressView: valueEnergyLevelProgress,
-                                    noInfolabel: valueEnergyLevelLabel,
-                                    zeroFiveLabelsNumber: 5)
+        let energyLevel = model.displayVauesFom1To5(value: breed.energyLevel)
+        energyLevelStack.addArrangedSubview(energyLevel)
+
         //Grooming
-        setValueToProgressView(value: breed.grooming,
-                                    progressView: valueGroomingProgress,
-                                    noInfolabel: valueGroomingLabel,
-                                    zeroFiveLabelsNumber: 6)
+        let groomong = model.displayVauesFom1To5(value: breed.grooming)
+        groomingStack.addArrangedSubview(groomong)
         
         //Health issues
-        setValueToProgressView(value: breed.healthIssues,
-                                    progressView: valuehealthIssuesProgress,
-                                    noInfolabel: valuehealthIssuesLabel,
-                                    zeroFiveLabelsNumber: 7)
+        let healthIssues = model.displayVauesFom1To5(value: breed.grooming)
+        healthIssuesStack.addArrangedSubview(healthIssues)
         
         //Intelligence
-        setValueToProgressView(value: breed.intelligence,
-                                    progressView: valueIntelligenceProgress,
-                                    noInfolabel: valueIntelligenceLabel,
-                                    zeroFiveLabelsNumber: 8)
+        let inteligence = model.displayVauesFom1To5(value: breed.intelligence)
+        inteligenceStack.addArrangedSubview(inteligence)
+
         //Shedding level
-        setValueToProgressView(value: breed.sheddingLevel,
-                                    progressView: valueSheddingLevelProgress,
-                                    noInfolabel: valueSheddingLevelLabel,
-                                    zeroFiveLabelsNumber: 9)
+        let sheddingLevel = model.displayVauesFom1To5(value: breed.sheddingLevel)
+        sheddingLevelStack.addArrangedSubview(sheddingLevel)
+
         //Social needs
-        setValueToProgressView(value: breed.socialNeeds,
-                                    progressView: valueSocialNeedsProgress,
-                                    noInfolabel: valueSocialNeedsLabel,
-                                    zeroFiveLabelsNumber: 10)
+        let socialNeeds = model.displayVauesFom1To5(value: breed.socialNeeds)
+        socialNeedsStack.addArrangedSubview(socialNeeds)
         
         //Stranger friendly
-        setValueToProgressView(value: breed.strangerFriendly,
-                                    progressView: valueStrangerFriendlyProgress,
-                                    noInfolabel: valueStrangerFriendlyLabel,
-                                    zeroFiveLabelsNumber: 11)
+        let straingerFriendly = model.displayVauesFom1To5(value: breed.strangerFriendly)
+        strangerFriendlyStack.addArrangedSubview(straingerFriendly)
         
         //Vocalisation
-        setValueToProgressView(value: breed.vocalisation,
-                                    progressView: valueVocalisationProgress,
-                                    noInfolabel: valueVocalisationLabel,
-                                    zeroFiveLabelsNumber: 12)
+        let vocalisation = model.displayVauesFom1To5(value: breed.vocalisation)
+        vocalisationStack.addArrangedSubview(vocalisation)
         
         //Indor
         valueIndor.text = StringBinar(binarInt: breed.indoor).value
@@ -261,6 +207,14 @@ class BreedDetailsViewController: UIViewController {
         //
         valueHypoallergenicLabel.text = StringBinar(binarInt: breed.hypoallergenic).value
         
+        cfaButton.isEnabled = model.checkURLExisting(url: breed.cfaURL)
+        
+        vcaHospitalsButton.isEnabled = model.checkURLExisting(url: breed.vcahospitalsURL)
+        
+        vetstreetButton.isEnabled = model.checkURLExisting(url: breed.vetstreetURL)
+        
+        wikipediaButton.isEnabled = model.checkURLExisting(url: breed.wikipediaURL)
+        
         shareBarButton.isEnabled = true
         activityIndicator.stopAnimating()
         uiCoverView.removeFromSuperview()
@@ -268,18 +222,18 @@ class BreedDetailsViewController: UIViewController {
     
     
     @IBAction func cfaURLTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.cfaURL, sender: sender)
+        presentSafariVC(urlString: breedDetails.first?.breeds.first?.cfaURL)
     }
     
     @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vcahospitalsURL, sender: sender)
+        presentSafariVC(urlString: breedDetails.first?.breeds.first?.vcahospitalsURL)
     }
     
     @IBAction func vetStreetTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.vetstreetURL, sender: sender)
+        presentSafariVC(urlString: breedDetails.first?.breeds.first?.vetstreetURL)
     }
     
     @IBAction func wikipediaTap(_ sender: UIButton) {
-        presentSafariVCForUrl(urlString: breedDetails.first?.breeds.first?.wikipediaURL, sender: sender)
+        presentSafariVC(urlString: breedDetails.first?.breeds.first?.wikipediaURL)
     }
 }
