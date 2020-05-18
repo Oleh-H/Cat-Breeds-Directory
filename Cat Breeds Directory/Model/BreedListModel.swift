@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 class BreedListModel {
     
     //MARK: - Properties
     let jsonDataParser = JsonDataParser()
-    typealias BreedsList = ([BreedIdAndName]) -> Void
+    typealias BreedsList = (Result<[BreedIdAndName], Error>) -> Void
 
     
     func getBreedsList(completion: @escaping BreedsList) {
@@ -25,9 +26,9 @@ class BreedListModel {
             if let data = data {
 //                let string = String(bytes: data, encoding: .utf8)
                 let breedsList = self.jsonDataParser.parseDataToBreedsList(data)
-                completion(breedsList)
+                completion(.success(breedsList))
             } else if let error = error {
-                print(error.localizedDescription)
+                completion(.failure(error))
             }
         }
         task.resume()

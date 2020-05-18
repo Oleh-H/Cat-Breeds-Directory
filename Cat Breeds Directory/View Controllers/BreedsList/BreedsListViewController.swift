@@ -18,7 +18,7 @@ class BreedsListViewController: UIViewController, UISearchResultsUpdating {
     
     //MARK: Properties
     
-    let breedListModel = BreedListModel()
+    let model = BreedListModel()
     let searchController = UISearchController(searchResultsController: nil)
     var breedsList: [BreedIdAndName] = []
     var breedsListFiltered: [BreedIdAndName] = []
@@ -49,23 +49,47 @@ class BreedsListViewController: UIViewController, UISearchResultsUpdating {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         
-        breedListModel.getBreedsList(completion: { [weak self] breeds in
-            self?.breedsList = breeds
-//            print(breeds)
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                self?.activityIndicator.stopAnimating()
-                self?.uiCoverWiew.removeFromSuperview()
-            }
-        })
+        loadData()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Breeds"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
+    //MARK: - Data loading and processing
+    
+    func loadData() {
+        model.getBreedsList { (result) in
+            switch result {
+            case .success(let list):
+                self.updateUI(breedList: list)
+            case .failure(let error):
+                self.presentAlert(error: error)
+            }
+        }
+    }
 
 
+    func updateUI(breedList: [BreedIdAndName]) {
+        self.breedsList = breedList
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+            self.uiCoverWiew.removeFromSuperview()
+        }
+    }
+    
+    func presentAlert(error: Error) {
+        let alert = UIAlertController.init(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Reload", style: .default, handler: { _ in
+            self.loadData()
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
+    }
 
     // MARK: - Navigation
 
@@ -83,6 +107,7 @@ class BreedsListViewController: UIViewController, UISearchResultsUpdating {
 
 extension BreedsListViewController: UITableViewDataSource {
     // MARK: - Table view data source
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
             return breedsListFiltered.count
@@ -109,7 +134,8 @@ extension BreedsListViewController: UITableViewDataSource {
 
 
 extension BreedsListViewController: UITableViewDelegate {
-// MARK: - Table View Delegate
+    // MARK: - Table View Delegate
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering {
             selectedBreedID = breedsListFiltered[indexPath.row].id
