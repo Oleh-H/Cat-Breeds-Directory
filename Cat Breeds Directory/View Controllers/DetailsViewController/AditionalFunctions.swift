@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SafariServices
 
 extension BreedDetailsViewController {
     
@@ -57,15 +56,29 @@ extension BreedDetailsViewController {
         }
         
         if gestureRecignizer.state == .ended {
-            
-            activityIndicatorImage.isHidden = false
-            activityIndicatorImage.startAnimating()
-            model.getAnotherImage(breedID: breedID) { (newImage) in
-                self.imageChangingAnimation(newImage: newImage)
-            }
+            changeImage()
         }
         tapToChangeLabel.textColor = .clear
     }
+    
+    
+    
+    func changeImage() {
+        activityIndicatorForImage.isHidden = false
+        activityIndicatorForImage.startAnimating()
+        model.getAnotherImage(breedID: breedID) { (newImage) in
+            switch newImage {
+            case .success(let image):
+                self.imageChangingAnimation(newImage: image)
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.activityIndicatorForImage.stopAnimating()
+                    self.presentAlert(error: error, isItForDetailsData: false)
+                }
+            }
+        }
+    }
+
     
     //animate changing of the cat image
     func imageChangingAnimation(newImage: UIImage) {
@@ -75,8 +88,7 @@ extension BreedDetailsViewController {
             }) {_ in
                 self.catsImage.image = newImage
                 
-                self.activityIndicatorImage.stopAnimating()
-                self.activityIndicatorImage.isHidden = true
+                self.activityIndicatorForImage.stopAnimating()
                 UIView.animate(withDuration: 0.4) {
                     self.catsImage.alpha = 1
                 }
@@ -84,12 +96,4 @@ extension BreedDetailsViewController {
         }
     }
     
-    
-    
-    //MARK: Safari View Controller
-    //Present links in Safari ViewController
-    func presentSafariVC(urlString: String?) {
-        let safariViewController = model.prepareSafariVCForUrl(url: urlString!)
-        present(safariViewController, animated: true, completion: nil)
-    }
 }

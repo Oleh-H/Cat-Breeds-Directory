@@ -8,7 +8,9 @@
 
 import Foundation
 
-
+/**
+ Contains all properties
+ */
 struct Breed: Decodable {
     let weight: Weight
     let id: String

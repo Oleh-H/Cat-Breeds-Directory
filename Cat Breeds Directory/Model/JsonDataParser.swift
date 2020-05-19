@@ -13,28 +13,28 @@ import Foundation
 class JsonDataParser {
     
     
-    func parseDataToBreedsList(_ data: Data) -> [BreedIdAndName] {
+    func parseDataToBreedsList(_ data: Data) -> Result<[BreedIdAndName], Error> {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         var decodedBreeds: [BreedIdAndName] = []
         do {
             decodedBreeds = try jsonDecoder.decode([BreedIdAndName].self, from: data)
+            return .success(decodedBreeds)
         } catch let error as NSError {
-            print(error.localizedDescription)
+            debugPrint(error.localizedDescription)
+            return .failure(error)
         }
-        return decodedBreeds
     }
 
-    func parseDataToBreedDetails(_ data: Data) -> [BreedDetails] {
+    func parseDataToBreedDetails(_ data: Data) -> Result<[BreedDetails], Error> {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         var decodedBreeds: [BreedDetails] = []
         do {
             decodedBreeds = try jsonDecoder.decode([BreedDetails].self, from: data)
-            return decodedBreeds
+            return .success(decodedBreeds)
         } catch let error as NSError {
-            print(error.localizedDescription)
+            return .failure(error)
         }
-        return decodedBreeds
     }
 }

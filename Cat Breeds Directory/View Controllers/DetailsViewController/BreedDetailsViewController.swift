@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BreedDetailsViewController: UIViewController {
+class BreedDetailsViewController: UIViewController, Storyboarded {
 
     //MARK: Outlets
     @IBOutlet weak var shareBarButton: UIBarButtonItem!
@@ -49,7 +49,7 @@ class BreedDetailsViewController: UIViewController {
     
     @IBOutlet weak var uiCoverView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var activityIndicatorImage: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorForImage: UIActivityIndicatorView!
     
     @IBOutlet weak var cfaButton: UIButton!
     @IBOutlet weak var vcaHospitalsButton: UIButton!
@@ -58,8 +58,10 @@ class BreedDetailsViewController: UIViewController {
     
     
     //MARK: - Properties
+    weak var mainCoordinator: MainCoordinator?
     let emojiManager = EmojiManager()
     let model = BreedDetailsModel()
+    let progressDisplayingStackView = ProgressDisplayingStackView()
     
     var breedID: String = ""
     var breedDetails: [BreedDetails] = []
@@ -71,8 +73,8 @@ class BreedDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         activityIndicator.hidesWhenStopped = true
-        activityIndicatorImage.hidesWhenStopped = true
-        activityIndicatorImage.isHidden = true
+        activityIndicatorForImage.hidesWhenStopped = true
+        activityIndicatorForImage.isHidden = true
         
         shareBarButton.isEnabled = false
         
@@ -85,10 +87,37 @@ class BreedDetailsViewController: UIViewController {
         activityIndicator.startAnimating()
         
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        loadData()
+    }
+    
+    //MARK: - Data loading and error handling
+    func loadData() {
         model.getBreedDetails(breedID: breedID) { [weak self] details in
-            self?.breedDetails = details
-            self?.breed = details.first?.breeds.first
-            self?.updateUI(details: details)
+            switch details {
+            case .success(let details):
+                self?.breedDetails = details
+                self?.breed = details.first?.breeds.first
+                self?.updateUI(details: details)
+            case .failure(let error):
+                self?.presentAlert(error: error, isItForDetailsData: true)
+            }
+        }
+    }
+    
+    func presentAlert(error: Error, isItForDetailsData: Bool) {
+        let alert = UIAlertController.init(title: Constants.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
+        if isItForDetailsData {
+            alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in
+                self.loadData()
+            }))
+        } else {
+            alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in
+                self.changeImage()
+            }))
+        }
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
         }
     }
     
@@ -96,9 +125,14 @@ class BreedDetailsViewController: UIViewController {
     func updateUI(details: [BreedDetails]) {
         if let imageURL = details.first?.url {
             model.getImage(imageURL: imageURL) { (image) in
-                DispatchQueue.main.async {
-                    self.catsImage.image = image
-                    self.setValuesForValueLabels()
+                switch image {
+                case .success(let image):
+                    DispatchQueue.main.async {
+                        self.catsImage.image = image
+                        self.setValuesForValueLabels()
+                    }
+                case .failure(let error):
+                    self.presentAlert(error: error, isItForDetailsData: true)
                 }
             }
         }
@@ -119,70 +153,70 @@ class BreedDetailsViewController: UIViewController {
         valueTemperament.text = breed.temperament
         
         //Origin
-        valueOrigin.text = "\(breed.origin ?? model.noInfoString) \(emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
+        valueOrigin.text = "\(breed.origin ?? Constants.noInfoString) \(emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
         
         //Life Span
         valueLifeSpan.text = {
             if let lifeSpan = breed.lifeSpan {
                 return "\(lifeSpan) years"
             } else {
-                return model.noInfoString
+                return Constants.noInfoString
             }
         }()
         
         //Weight
-        valueWeightLabel.text = "\(breed.weight.metric ?? model.noInfoString) kg  (\(breed.weight.imperial ?? "") lb)"
+        valueWeightLabel.text = "\(breed.weight.metric ?? Constants.noInfoString) kg  (\(breed.weight.imperial ?? "") lb)"
         
         //Adaptability
-        let adaptability = model.displayVauesFom1To5(value: breed.adaptability)
+        let adaptability = progressDisplayingStackView.displayVauesFom1To5(value: breed.adaptability)
         adaptabilityStack.addArrangedSubview(adaptability)
         
         //Affection level
-        let affection = model.displayVauesFom1To5(value: breed.affectionLevel)
+        let affection = progressDisplayingStackView.displayVauesFom1To5(value: breed.affectionLevel)
         affectionStack.addArrangedSubview(affection)
         
         //Cat friendly
-        let catFriendly = model.displayVauesFom1To5(value: breed.catFriendly)
+        let catFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.catFriendly)
         catFriendlyStack.addArrangedSubview(catFriendly)
 
         //Child friendly
-        let childFriendly = model.displayVauesFom1To5(value: breed.childFriendly)
+        let childFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.childFriendly)
         childFriendlyStack.addArrangedSubview(childFriendly)
 
         //Dog friendly
-        let dogFriendly = model.displayVauesFom1To5(value: breed.dogFriendly)
+        let dogFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.dogFriendly)
         dogFriendlyStack.addArrangedSubview(dogFriendly)
 
         //Energy level
-        let energyLevel = model.displayVauesFom1To5(value: breed.energyLevel)
+        let energyLevel = progressDisplayingStackView.displayVauesFom1To5(value: breed.energyLevel)
         energyLevelStack.addArrangedSubview(energyLevel)
 
         //Grooming
-        let groomong = model.displayVauesFom1To5(value: breed.grooming)
+        let groomong = progressDisplayingStackView.displayVauesFom1To5(value: breed.grooming)
         groomingStack.addArrangedSubview(groomong)
         
         //Health issues
-        let healthIssues = model.displayVauesFom1To5(value: breed.grooming)
+        let healthIssues = progressDisplayingStackView.displayVauesFom1To5(value: breed.healthIssues)
         healthIssuesStack.addArrangedSubview(healthIssues)
         
         //Intelligence
-        let inteligence = model.displayVauesFom1To5(value: breed.intelligence)
+        let inteligence = progressDisplayingStackView.displayVauesFom1To5(value: breed.intelligence)
         inteligenceStack.addArrangedSubview(inteligence)
 
         //Shedding level
-        let sheddingLevel = model.displayVauesFom1To5(value: breed.sheddingLevel)
+        let sheddingLevel = progressDisplayingStackView.displayVauesFom1To5(value: breed.sheddingLevel)
         sheddingLevelStack.addArrangedSubview(sheddingLevel)
 
         //Social needs
-        let socialNeeds = model.displayVauesFom1To5(value: breed.socialNeeds)
+        let socialNeeds = progressDisplayingStackView.displayVauesFom1To5(value: breed.socialNeeds)
         socialNeedsStack.addArrangedSubview(socialNeeds)
         
         //Stranger friendly
-        let straingerFriendly = model.displayVauesFom1To5(value: breed.strangerFriendly)
+        let straingerFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.strangerFriendly)
         strangerFriendlyStack.addArrangedSubview(straingerFriendly)
         
         //Vocalisation
-        let vocalisation = model.displayVauesFom1To5(value: breed.vocalisation)
+        let vocalisation = progressDisplayingStackView.displayVauesFom1To5(value: breed.vocalisation)
         vocalisationStack.addArrangedSubview(vocalisation)
         
         //Indor
@@ -224,18 +258,26 @@ class BreedDetailsViewController: UIViewController {
     
     
     @IBAction func cfaURLTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breed?.cfaURL)
+        model.presentSafariVC(urlString: breed?.cfaURL) { safariVC in
+            present(safariVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breed?.vcahospitalsURL)
+        model.presentSafariVC(urlString: breed?.vcahospitalsURL) { (safariVC) in
+            present(safariVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func vetStreetTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breed?.vetstreetURL)
+        model.presentSafariVC(urlString: breed?.vetstreetURL) { (safariVC) in
+            present(safariVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func wikipediaTap(_ sender: UIButton) {
-        presentSafariVC(urlString: breed?.wikipediaURL)
+        model.presentSafariVC(urlString: breed?.wikipediaURL) { (safariVC) in
+            present(safariVC, animated: true, completion: nil)
+        }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BreedsListViewController: UIViewController, UISearchResultsUpdating {
+class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsUpdating {
     
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -17,7 +17,7 @@ class BreedsListViewController: UIViewController, UISearchResultsUpdating {
     
     
     //MARK: Properties
-    
+    weak var mainCoordinator: MainCoordinator?
     let model = BreedListModel()
     let searchController = UISearchController(searchResultsController: nil)
     var breedsList: [BreedIdAndName] = []
@@ -42,7 +42,7 @@ class BreedsListViewController: UIViewController, UISearchResultsUpdating {
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search breeds"
+        searchController.searchBar.placeholder = Constants.searchPlaceHolder
         navigationItem.searchController = searchController
         definesPresentationContext = true //search bar doesn't remains on screen after navigation to another VC
         
@@ -61,12 +61,12 @@ class BreedsListViewController: UIViewController, UISearchResultsUpdating {
     //MARK: - Data loading and processing
     
     func loadData() {
-        model.getBreedsList { (result) in
+        model.getBreedsList { [weak self] result in
             switch result {
             case .success(let list):
-                self.updateUI(breedList: list)
+                self?.updateUI(breedList: list)
             case .failure(let error):
-                self.presentAlert(error: error)
+                self?.presentAlert(error: error)
             }
         }
     }
@@ -82,25 +82,13 @@ class BreedsListViewController: UIViewController, UISearchResultsUpdating {
     }
     
     func presentAlert(error: Error) {
-        let alert = UIAlertController.init(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Reload", style: .default, handler: { _ in
+        let alert = UIAlertController.init(title: Constants.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in
             self.loadData()
         }))
         DispatchQueue.main.async {
             self.present(alert, animated: true)
         }
-    }
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "toBreedDetails" else {return}
-        guard let destination = segue.destination as? BreedDetailsViewController else {
-            return
-        }
-        
-        destination.breedID = selectedBreedID
     }
 }
 
@@ -142,7 +130,7 @@ extension BreedsListViewController: UITableViewDelegate {
         } else {
             selectedBreedID = breedsList[indexPath.row].id
         }
-        performSegue(withIdentifier: "toBreedDetails", sender: self)
-        
+        // MARK: - Navigation
+        mainCoordinator?.displayBreedDetails(breedID: selectedBreedID)
     }
 }

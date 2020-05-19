@@ -26,7 +26,12 @@ class BreedListModel {
             if let data = data {
 //                let string = String(bytes: data, encoding: .utf8)
                 let breedsList = self.jsonDataParser.parseDataToBreedsList(data)
-                completion(.success(breedsList))
+                switch breedsList {
+                case .success(let list):
+                    completion(.success(list))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             } else if let error = error {
                 completion(.failure(error))
             }
