@@ -18,4 +18,8 @@ struct Constants {
     static let searchPlaceHolder = "Search breeds"
     static let errorAlertTitle = "Error"
     static let errorAlertButton = "Reload"
+    
+    static let valueNamesForStackViews = ["adaptability", "affectionLevel", "catFriendly", "childFriendly", "dogFriendly", "energyLevel", "grooming", "healthIssues", "intelligence", "sheddingLevel", "socialNeeds", "strangerFriendly", "vocalisation"]
+    
+    static let valueNamesForYesNoLabels = ["indoor", "experimental", "hairless", "rare", "rex", "suppressedTail", "shortLegs", "hypoallergenic"]
 }

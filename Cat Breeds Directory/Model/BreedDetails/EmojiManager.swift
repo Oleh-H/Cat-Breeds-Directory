@@ -21,11 +21,12 @@ class EmojiManager {
      
      - Returns: Emoji flag of the region
      */
-    func emojiFlag(regionCode: String) -> String? {
-        let code = regionCode.uppercased()
+    func emojiFlag(regionCode: String?) -> String {
+        guard let regionCodeString = regionCode else {return ""}
+        let code = regionCodeString.uppercased()
 
         guard Locale.isoRegionCodes.contains(code) else {
-            return nil
+            return ""
         }
 
         var flagString = ""

@@ -61,11 +61,13 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     weak var mainCoordinator: MainCoordinator?
     let emojiManager = EmojiManager()
     let model = BreedDetailsModel()
-    let progressDisplayingStackView = ProgressDisplayingStackView()
+    let network = BreedDetailsNetwork()
+    //let progressDisplayingStackView = ProgressDisplayingStackView()
     
     var breedID: String = ""
     var breedDetails: [BreedDetails] = []
     var breed: Breed?
+    var links: [String?] = []
     
     
     //MARK: - ViewController life cycle
@@ -93,18 +95,29 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     
     //MARK: - Data loading and error handling
     func loadData() {
-        model.getBreedDetails(breedID: breedID) { [weak self] details in
-            switch details {
-            case .success(let details):
-                self?.breedDetails = details
-                self?.breed = details.first?.breeds.first
-                self?.updateUI(details: details)
+        model.preparedDataForUI(breedID: breedID) { result in
+            switch result {
+            case .success(let texts, let stackViews, let yesNoLabels, let links, let image):
+                self.links = links
+                DispatchQueue.main.async {
+                    self.setTexts(texts: texts)
+                    self.setValuesForStacks(stack: stackViews)
+                    self.setValuesForYesNoLabels(yesNoLabels: yesNoLabels)
+                    self.checkLinksForButtons(links: links)
+                    self.catsImage.image = image
+                    
+                    self.shareBarButton.isEnabled = true
+                    self.activityIndicator.stopAnimating()
+                    self.uiCoverView.removeFromSuperview()
+                }
             case .failure(let error):
-                self?.presentAlert(error: error, isItForDetailsData: true)
+                self.presentAlert(error: error, isItForDetailsData: true)
             }
         }
     }
+
     
+    //MARK: Error Alert
     func presentAlert(error: Error, isItForDetailsData: Bool) {
         let alert = UIAlertController.init(title: Constants.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
         if isItForDetailsData {
@@ -122,158 +135,65 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     }
     
     //MARK: - UI updating
-    func updateUI(details: [BreedDetails]) {
-        if let imageURL = details.first?.url {
-            model.getImage(imageURL: imageURL) { (image) in
-                switch image {
-                case .success(let image):
-                    DispatchQueue.main.async {
-                        self.catsImage.image = image
-                        self.setValuesForValueLabels()
-                    }
-                case .failure(let error):
-                    self.presentAlert(error: error, isItForDetailsData: true)
-                }
-            }
+    
+    func setTexts(texts: [String: String]) {
+        breedName.text = texts["name"]
+        valueTemperament.text = texts["temperament"]
+        valueOrigin.text = texts["origin"]
+        valueDescription.text = texts["description"]
+        valueLifeSpan.text = texts["lifeSpan"]
+        valueWeightLabel.text = texts["weight"]
+    }
+
+    
+    func setValuesForStacks(stack: [String: UIStackView]) {
+        
+        let stackViewsForProgressView = [adaptabilityStack, affectionStack, catFriendlyStack, childFriendlyStack, dogFriendlyStack, energyLevelStack, groomingStack, healthIssuesStack, inteligenceStack, sheddingLevelStack, socialNeedsStack, strangerFriendlyStack, vocalisationStack]
+        
+        for (index, emptyStack) in stackViewsForProgressView.enumerated() {
+            let preparedStack = stack[Constants.valueNamesForStackViews[index]]
+            emptyStack?.addArrangedSubview(preparedStack!)
         }
     }
     
     
-    //MARK: - Fill Values
+    func setValuesForYesNoLabels(yesNoLabels: [String: String]) {
+        let labels = [valueIndor, valueExperimentalLabel, valueHairlessLabel, valueRareLabel, valueRexLabel, valueSuppressedTailLabel, valueShortLegsLabel, valueHypoallergenicLabel]
+                
+        for (index, label) in labels.enumerated() {
+            let name = Constants.valueNamesForYesNoLabels[index]
+            let value = yesNoLabels[name]
+            label?.text = value
+        }
+    }
     
-    func setValuesForValueLabels() {
-        guard let breed = breed else {return}
+    func checkLinksForButtons(links: [String?]) {
+        let buttons = [cfaButton, vcaHospitalsButton, vetstreetButton, wikipediaButton]
         
-        breedName.text = breed.name
-        
-        //Description
-        valueDescription.text = breed.description
-        
-        //Temperament
-        valueTemperament.text = breed.temperament
-        
-        //Origin
-        valueOrigin.text = "\(breed.origin ?? Constants.noInfoString) \(emojiManager.emojiFlag(regionCode: breed.countryCode ?? "") ?? "")"
-        
-        //Life Span
-        valueLifeSpan.text = {
-            if let lifeSpan = breed.lifeSpan {
-                return "\(lifeSpan) years"
-            } else {
-                return Constants.noInfoString
-            }
-        }()
-        
-        //Weight
-        valueWeightLabel.text = "\(breed.weight.metric ?? Constants.noInfoString) kg  (\(breed.weight.imperial ?? "") lb)"
-        
-        //Adaptability
-        let adaptability = progressDisplayingStackView.displayVauesFom1To5(value: breed.adaptability)
-        adaptabilityStack.addArrangedSubview(adaptability)
-        
-        //Affection level
-        let affection = progressDisplayingStackView.displayVauesFom1To5(value: breed.affectionLevel)
-        affectionStack.addArrangedSubview(affection)
-        
-        //Cat friendly
-        let catFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.catFriendly)
-        catFriendlyStack.addArrangedSubview(catFriendly)
-
-        //Child friendly
-        let childFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.childFriendly)
-        childFriendlyStack.addArrangedSubview(childFriendly)
-
-        //Dog friendly
-        let dogFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.dogFriendly)
-        dogFriendlyStack.addArrangedSubview(dogFriendly)
-
-        //Energy level
-        let energyLevel = progressDisplayingStackView.displayVauesFom1To5(value: breed.energyLevel)
-        energyLevelStack.addArrangedSubview(energyLevel)
-
-        //Grooming
-        let groomong = progressDisplayingStackView.displayVauesFom1To5(value: breed.grooming)
-        groomingStack.addArrangedSubview(groomong)
-        
-        //Health issues
-        let healthIssues = progressDisplayingStackView.displayVauesFom1To5(value: breed.healthIssues)
-        healthIssuesStack.addArrangedSubview(healthIssues)
-        
-        //Intelligence
-        let inteligence = progressDisplayingStackView.displayVauesFom1To5(value: breed.intelligence)
-        inteligenceStack.addArrangedSubview(inteligence)
-
-        //Shedding level
-        let sheddingLevel = progressDisplayingStackView.displayVauesFom1To5(value: breed.sheddingLevel)
-        sheddingLevelStack.addArrangedSubview(sheddingLevel)
-
-        //Social needs
-        let socialNeeds = progressDisplayingStackView.displayVauesFom1To5(value: breed.socialNeeds)
-        socialNeedsStack.addArrangedSubview(socialNeeds)
-        
-        //Stranger friendly
-        let straingerFriendly = progressDisplayingStackView.displayVauesFom1To5(value: breed.strangerFriendly)
-        strangerFriendlyStack.addArrangedSubview(straingerFriendly)
-        
-        //Vocalisation
-        let vocalisation = progressDisplayingStackView.displayVauesFom1To5(value: breed.vocalisation)
-        vocalisationStack.addArrangedSubview(vocalisation)
-        
-        //Indor
-        valueIndor.text = StringBinar(binarInt: breed.indoor).value
-        
-        //Experimental
-        valueExperimentalLabel.text = StringBinar(binarInt: breed.experimental).value
-        
-        //Hairless
-        valueHairlessLabel.text = StringBinar(binarInt: breed.hairless).value
-        
-        //Rare
-        valueRareLabel.text = StringBinar(binarInt: breed.rare).value
-        
-        //Rex
-        valueRexLabel.text = StringBinar(binarInt: breed.rex).value
-        
-        //Suppressed tail
-        valueSuppressedTailLabel.text = StringBinar(binarInt: breed.suppressedTail).value
-        
-        //Short legs
-        valueShortLegsLabel.text = StringBinar(binarInt: breed.shortLegs).value
-        
-        //
-        valueHypoallergenicLabel.text = StringBinar(binarInt: breed.hypoallergenic).value
-        
-        cfaButton.isEnabled = model.ifStringIsNotNil(string: breed.cfaURL)
-        
-        vcaHospitalsButton.isEnabled = model.ifStringIsNotNil(string: breed.vcahospitalsURL)
-        
-        vetstreetButton.isEnabled = model.ifStringIsNotNil(string: breed.vetstreetURL)
-        
-        wikipediaButton.isEnabled = model.ifStringIsNotNil(string: breed.wikipediaURL)
-        
-        shareBarButton.isEnabled = true
-        activityIndicator.stopAnimating()
-        uiCoverView.removeFromSuperview()
+        for (index, button) in buttons.enumerated() {
+            guard links[index] != nil && links[index] != "" else { continue }
+            button?.isEnabled = true
+        }
     }
     
     
     @IBAction func cfaURLTap(_ sender: UIButton) {
-        let safariVC = breed?.cfaURL?.urlToSafariViewController()
+        let safariVC = links[0]?.urlToSafariViewController()
         present(safariVC!, animated: true, completion: nil)
     }
     
     @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        let safariVC = breed?.vcahospitalsURL?.urlToSafariViewController()
+        let safariVC = links[1]?.urlToSafariViewController()
         present(safariVC!, animated: true, completion: nil)
     }
     
     @IBAction func vetStreetTap(_ sender: UIButton) {
-        let safariVC = breed?.vetstreetURL?.urlToSafariViewController()
+        let safariVC = links[2]?.urlToSafariViewController()
         present(safariVC!, animated: true, completion: nil)
     }
     
     @IBAction func wikipediaTap(_ sender: UIButton) {
-        let safariVC = breed?.wikipediaURL?.urlToSafariViewController()
+        let safariVC = links[3]?.urlToSafariViewController()
         present(safariVC!, animated: true, completion: nil)
     }
 }

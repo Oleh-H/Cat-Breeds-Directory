@@ -66,7 +66,7 @@ extension BreedDetailsViewController {
     func changeImage() {
         activityIndicatorForImage.isHidden = false
         activityIndicatorForImage.startAnimating()
-        model.getAnotherImage(breedID: breedID) { (newImage) in
+        network.getAnotherImage(breedID: breedID) { (newImage) in
             switch newImage {
             case .success(let image):
                 self.imageChangingAnimation(newImage: image)
