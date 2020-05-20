@@ -12,7 +12,7 @@ import UIKit
 class BreedListModel {
     
     //MARK: - Properties
-    let jsonDataParser = JsonDataParser()
+    private let jsonDataParser = JsonDataParser()
     typealias BreedsList = (Result<[BreedIdAndName], Error>) -> Void
 
     

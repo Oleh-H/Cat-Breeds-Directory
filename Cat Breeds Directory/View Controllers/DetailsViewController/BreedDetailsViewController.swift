@@ -258,26 +258,22 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     
     
     @IBAction func cfaURLTap(_ sender: UIButton) {
-        model.presentSafariVC(urlString: breed?.cfaURL) { safariVC in
-            present(safariVC, animated: true, completion: nil)
-        }
+        let safariVC = breed?.cfaURL?.urlToSafariViewController()
+        present(safariVC!, animated: true, completion: nil)
     }
     
     @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        model.presentSafariVC(urlString: breed?.vcahospitalsURL) { (safariVC) in
-            present(safariVC, animated: true, completion: nil)
-        }
+        let safariVC = breed?.vcahospitalsURL?.urlToSafariViewController()
+        present(safariVC!, animated: true, completion: nil)
     }
     
     @IBAction func vetStreetTap(_ sender: UIButton) {
-        model.presentSafariVC(urlString: breed?.vetstreetURL) { (safariVC) in
-            present(safariVC, animated: true, completion: nil)
-        }
+        let safariVC = breed?.vetstreetURL?.urlToSafariViewController()
+        present(safariVC!, animated: true, completion: nil)
     }
     
     @IBAction func wikipediaTap(_ sender: UIButton) {
-        model.presentSafariVC(urlString: breed?.wikipediaURL) { (safariVC) in
-            present(safariVC, animated: true, completion: nil)
-        }
+        let safariVC = breed?.wikipediaURL?.urlToSafariViewController()
+        present(safariVC!, animated: true, completion: nil)
     }
 }

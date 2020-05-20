@@ -8,24 +8,24 @@
 
 import UIKit
 
-class ProgressDisplayingStackView {
+final class ProgressDisplayingStackView {
     
-    var stackView: UIStackView?
-    var label0: UILabel {
+    private var stackView: UIStackView?
+    private var label0: UILabel {
         let label = UILabel()
         label.text = "0"
         label.font = UIFont.systemFont(ofSize: 14.0)
         return label
     }
     
-    var label5: UILabel {
+    private var label5: UILabel {
         let label = UILabel()
         label.text = "5"
         label.font = UIFont.systemFont(ofSize: 14.0)
         return label
     }
     
-    let noInfoLabel: UILabel = {
+    private let noInfoLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.noInfoString
         return label

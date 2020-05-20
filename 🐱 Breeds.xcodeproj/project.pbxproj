@@ -11,6 +11,8 @@
 		7A171ACB247307E4002F6823 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A171ACA247307E4002F6823 /* Storyboarded.swift */; };
 		7A171ACE24730FEA002F6823 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A171ACD24730FEA002F6823 /* MainCoordinator.swift */; };
 		7A171AD324741469002F6823 /* ProgressDisplayingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A171AD224741469002F6823 /* ProgressDisplayingStackView.swift */; };
+		7A171AD524751D98002F6823 /* BreedsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A171AD424751D98002F6823 /* BreedsListTableView.swift */; };
+		7A171AD7247520A2002F6823 /* SafariViewForStringURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A171AD6247520A2002F6823 /* SafariViewForStringURL.swift */; };
 		7A1AB9DE24683CF300B5E634 /* AditionalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */; };
 		7A525EAE2464608D004D987C /* BreedIdAndName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAD2464608D004D987C /* BreedIdAndName.swift */; };
 		7A525EB02465970B004D987C /* EmojiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAF2465970B004D987C /* EmojiManager.swift */; };
@@ -37,6 +39,8 @@
 		7A171ACA247307E4002F6823 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		7A171ACD24730FEA002F6823 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		7A171AD224741469002F6823 /* ProgressDisplayingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDisplayingStackView.swift; sourceTree = "<group>"; };
+		7A171AD424751D98002F6823 /* BreedsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsListTableView.swift; sourceTree = "<group>"; };
+		7A171AD6247520A2002F6823 /* SafariViewForStringURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewForStringURL.swift; sourceTree = "<group>"; };
 		7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AditionalFunctions.swift; sourceTree = "<group>"; };
 		7A525EAD2464608D004D987C /* BreedIdAndName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedIdAndName.swift; sourceTree = "<group>"; };
 		7A525EAF2465970B004D987C /* EmojiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiManager.swift; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 			children = (
 				7ACF829524619A30006B1A0D /* BreedDetailsViewController.swift */,
 				7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */,
+				7A171AD6247520A2002F6823 /* SafariViewForStringURL.swift */,
 			);
 			path = DetailsViewController;
 			sourceTree = "<group>";
@@ -104,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				7AC95189245EED24008EB7FB /* BreedsListViewController.swift */,
+				7A171AD424751D98002F6823 /* BreedsListTableView.swift */,
 				7AB3493C246E9A3A002AAFB7 /* BreedsListSearch.swift */,
 			);
 			path = BreedsList;
@@ -238,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AC9518F245F04F4008EB7FB /* Breed.swift in Sources */,
+				7A171AD524751D98002F6823 /* BreedsListTableView.swift in Sources */,
 				7AB34941246ED830002AAFB7 /* BreedDetailsModel.swift in Sources */,
 				7AB3493D246E9A3A002AAFB7 /* BreedsListSearch.swift in Sources */,
 				7A525EAE2464608D004D987C /* BreedIdAndName.swift in Sources */,
@@ -245,6 +252,7 @@
 				7A171ACB247307E4002F6823 /* Storyboarded.swift in Sources */,
 				7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */,
 				7AC9518A245EED24008EB7FB /* BreedsListViewController.swift in Sources */,
+				7A171AD7247520A2002F6823 /* SafariViewForStringURL.swift in Sources */,
 				7A5AF290246D629500E689E8 /* IntToValueConvertion.swift in Sources */,
 				7A5AF28C246C2FBB00E689E8 /* Environment.swift in Sources */,
 				7A525EB02465970B004D987C /* EmojiManager.swift in Sources */,

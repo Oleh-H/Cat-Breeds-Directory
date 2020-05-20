@@ -14,7 +14,7 @@ class BreedDetailsModel {
     
     //MARK: Properties
 
-    let jsonDataParser = JsonDataParser()
+    private let jsonDataParser = JsonDataParser()
 
     //MARK: - Network
     
@@ -89,14 +89,5 @@ class BreedDetailsModel {
         return true
     }
     
-    //MARK: Safari View Controller
     
-    /**
-     
-     */
-    func presentSafariVC(urlString: String?, handler: (SFSafariViewController) -> Void){
-        let url = URL(string: urlString!)
-        let safariViewController = SFSafariViewController(url: url!)
-        handler(safariViewController)
-    }
 }
