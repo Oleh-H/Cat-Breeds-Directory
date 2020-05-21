@@ -176,7 +176,7 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
         }
     }
     
-    
+    //MARK: - Buttons actions
     @IBAction func cfaURLTap(_ sender: UIButton) {
         let safariVC = links[0]?.urlToSafariViewController()
         present(safariVC!, animated: true, completion: nil)

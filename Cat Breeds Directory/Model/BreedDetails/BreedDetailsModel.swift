@@ -18,12 +18,15 @@ class BreedDetailsModel {
     private let emojiManager = EmojiManager()
     private let progressDisplayingStackView = ProgressDisplayingStackView()
     private let network = BreedDetailsNetwork()
+    private var breed: Breed?
     
+    //MARK: - Get data
     func preparedDataForUI(breedID: String, handler: @escaping (Result<([String: String], [String: UIStackView], [String: String], [String?], UIImage), Error>) -> Void) {
         network.getBreedDetails(breedID: breedID) { (result) in
             switch result {
             case .success(let breedDetails):
                 guard let breed = breedDetails.first?.breeds.first else {return}
+                self.breed = breed
                 let labels = self.textLabelsReadyToDisplay(breed: breed)
                 let stackViews =  self.readyProgressViewStack(breed: breed)
                 let yesNoLabels = self.readyYesNoLabels(breed: breed)
@@ -43,11 +46,7 @@ class BreedDetailsModel {
         }
     }
     
-    func linksForExternalResouses(breed: Breed) -> [String?]{
-        let urls = [breed.cfaURL, breed.vcahospitalsURL, breed.vetstreetURL, breed.wikipediaURL]
-        return urls
-    }
-    
+    //MARK: Prepare data for UI
     private func textLabelsReadyToDisplay(breed: Breed) -> [String: String] {
         var textLabels: [String: String] = [:]
         
@@ -104,5 +103,21 @@ class BreedDetailsModel {
         }
         
         return labels
+    }
+    
+    //MARK: Links
+    func linksForExternalResouses(breed: Breed) -> [String?]{
+        let urls = [breed.cfaURL, breed.vcahospitalsURL, breed.vetstreetURL, breed.wikipediaURL]
+        return urls
+    }
+    
+    //MARK: Strings for sharing
+    func stringForSharing() -> String {
+        let name = breed!.name
+        let temperament = breed?.temperament
+        let description = breed?.description
+        let origin = emojiManager.emojiFlag(regionCode: breed?.countryCode)
+        let underlyingString = "\(name) \(origin)\n\nTemperament: \(temperament ?? "")\n\nDescription: \(description ?? "")"
+        return underlyingString
     }
 }

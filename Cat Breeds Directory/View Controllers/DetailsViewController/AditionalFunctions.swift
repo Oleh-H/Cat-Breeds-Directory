@@ -31,13 +31,9 @@ extension BreedDetailsViewController {
      
      */
     @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
-        guard let image = catsImage.image,
-            let name = breedDetails.first?.breeds.first?.name,
-            let temperament = breedDetails.first?.breeds.first?.temperament,
-            let description = breedDetails.first?.breeds.first?.description else { return }
-        let origin = emojiManager.emojiFlag(regionCode: breedDetails.first?.breeds.first?.countryCode ?? "") ?? ""
-        let underlyingString = "\(name) \(origin)\n\nTemperament: \(temperament)\n\nDescription: \(description)"
-        let activityController = UIActivityViewController(activityItems: [image, underlyingString], applicationActivities: nil)
+        let image: UIImage = catsImage.image!
+        let preparedString = model.stringForSharing()
+        let activityController = UIActivityViewController(activityItems: [image, preparedString], applicationActivities: nil)
         /*activityController.popoverPresentationController?.sourceView = sender*/ //for iPad
         
         present(activityController, animated: true, completion: nil)
