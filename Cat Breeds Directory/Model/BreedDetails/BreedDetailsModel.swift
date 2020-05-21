@@ -25,19 +25,21 @@ class BreedDetailsModel {
         network.getBreedDetails(breedID: breedID) { (result) in
             switch result {
             case .success(let breedDetails):
-                guard let breed = breedDetails.first?.breeds.first else {return}
-                self.breed = breed
-                let labels = self.textLabelsReadyToDisplay(breed: breed)
-                let stackViews =  self.readyProgressViewStack(breed: breed)
-                let yesNoLabels = self.readyYesNoLabels(breed: breed)
-                let links = self.linksForExternalResouses(breed:breed)
+                DispatchQueue.main.async {
+                    guard let breed = breedDetails.first?.breeds.first else {return}
+                    self.breed = breed
+                    let labels = self.textLabelsReadyToDisplay(breed: breed)
+                    let stackViews =  self.readyProgressViewStack(breed: breed)
+                    let yesNoLabels = self.readyYesNoLabels(breed: breed)
+                    let links = self.linksForExternalResouses(breed:breed)
 
-                self.network.getImage(url: breedDetails.first?.url) { (image) in
-                switch image {
-                case .success(let catImage):
-                    handler(.success((labels, stackViews, yesNoLabels, links, catImage)))
-                case .failure(let error):
-                    handler(.failure(error))
+                    self.network.getImage(url: breedDetails.first?.url) { (image) in
+                    switch image {
+                    case .success(let catImage):
+                        handler(.success((labels, stackViews, yesNoLabels, links, catImage)))
+                    case .failure(let error):
+                        handler(.failure(error))
+                        }
                     }
                 }
             case .failure(let error):
