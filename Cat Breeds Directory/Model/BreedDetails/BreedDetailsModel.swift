@@ -10,6 +10,7 @@ import Foundation
 //import UIKit
 import SafariServices
 
+///Constructs data of breed description and breed image received from API for setting it to ui elements.
 class BreedDetailsModel {
     
     //MARK: Properties
@@ -19,9 +20,14 @@ class BreedDetailsModel {
     private let progressDisplayingStackView = ProgressDisplayingStackView()
     private let network = BreedDetailsNetwork()
     private var breed: Breed?
+    ///Type of Void function with `Result` type parameter.
+    ///
+    ///Contains .success data type as typle of dictionaries for: labels, stackViews, yesNoLabels, links and one Image.
+    typealias DataForUIElements = (Result<([String: String], [String: UIStackView], [String: String], [String?], UIImage), Error>) -> Void
     
     //MARK: - Get data
-    func preparedDataForUI(breedID: String, handler: @escaping (Result<([String: String], [String: UIStackView], [String: String], [String?], UIImage), Error>) -> Void) {
+    ///
+    func preparedDataForUI(breedID: String, handler: @escaping DataForUIElements)  {
         network.getBreedDetails(breedID: breedID) { (result) in
             switch result {
             case .success(let breedDetails):
@@ -49,6 +55,9 @@ class BreedDetailsModel {
     }
     
     //MARK: Prepare data for UI
+    ///Prepare strings contained in received argument for setting ti the labels
+    ///
+    ///- Returns: Dictionary of label name and prepared string for it.
     private func textLabelsReadyToDisplay(breed: Breed) -> [String: String] {
         var textLabels: [String: String] = [:]
         
@@ -73,10 +82,12 @@ class BreedDetailsModel {
         
         return textLabels
     }
-    
+    ///Create dictionary of `UIStackView` instances with range as `UILabels` and progress in this range as `UIProgressView`
+    ///
+    ///Function get values for dedicated in `Constants` keys brom `breed` property for preparing ready to display UIStackViews with content.
+    ///- Returns: Dictionary that contain name and UIStackView with initialized and appended all dedicated elements.
     private func readyProgressViewStack(breed: Breed) -> [String: UIStackView] {
         var stackWithProgressViews: [String: UIStackView] = [:]
-        
         let mirror = Mirror(reflecting: breed)
         let array = Array(mirror.children)
         
@@ -90,7 +101,9 @@ class BreedDetailsModel {
         return stackWithProgressViews
     }
     
-    
+    ///Creates dictionary with "Yes", "No" labels for dedicated in `Constants` propery names
+    ///
+    ///- Returns: Dictionary of property name and "Yes" or "No" string.
     private func readyYesNoLabels(breed: Breed) -> [String: String] {
         var labels: [String: String] = [:]
         
@@ -108,12 +121,14 @@ class BreedDetailsModel {
     }
     
     //MARK: Links
+    ///- Returns: Array of url liks as String for external info resouces for the breed.
     func linksForExternalResouses(breed: Breed) -> [String?]{
         let urls = [breed.cfaURL, breed.vcahospitalsURL, breed.vetstreetURL, breed.wikipediaURL]
         return urls
     }
     
     //MARK: Strings for sharing
+    ///Combain several sections of breed description into one string ready for sharing.
     func stringForSharing() -> String {
         let name = breed!.name
         let temperament = breed?.temperament

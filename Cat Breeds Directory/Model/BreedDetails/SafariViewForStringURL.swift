@@ -12,12 +12,12 @@ import SafariServices
 extension String {
     //MARK: Safari View Controller
     
-    /**
-     
-     */
-    func urlToSafariViewController() -> SFSafariViewController {
-        let url = URL(string: self)
-        let safariViewController = SFSafariViewController(url: url!)
+    ///Init and return `SFsafariViewController` called on URL sring.
+    ///
+    ///If string can't be converted to url correctly function returns standart page determined in `Constants` struct.
+    func urlToSafariViewController() -> SFSafariViewController? {
+        guard let url = URL(string: self) else { return SFSafariViewController(url: URL(string: Constants.googleSearchBreedsURL)!)}
+        let safariViewController = SFSafariViewController(url: url)
         return safariViewController
     }
 }

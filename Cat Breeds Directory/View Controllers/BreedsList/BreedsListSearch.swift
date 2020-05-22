@@ -15,7 +15,7 @@ extension BreedsListViewController {
         let searchBar = searchController.searchBar
         filterContentForeSearchText(searchBar.text!)
     }
-    
+    ///Display in table only names that match the search phrase.
     func filterContentForeSearchText(_ searchText: String){
         breedsListFiltered = breedsList.filter({ (breedName) -> Bool in
             return breedName.name.lowercased().contains(searchText.lowercased())

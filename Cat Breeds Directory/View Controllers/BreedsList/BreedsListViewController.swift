@@ -12,6 +12,7 @@ class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsU
     
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
+    ///Cover the UI untill GET request will be comleted.
     @IBOutlet weak var uiCoverWiew: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -22,7 +23,7 @@ class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsU
     let searchController = UISearchController(searchResultsController: nil)
     var breedsList: [BreedIdAndName] = []
     var breedsListFiltered: [BreedIdAndName] = []
-    var selectedBreedID: String = ""
+    
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -60,7 +61,7 @@ class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsU
     }
     
     //MARK: - Data loading and processing
-    
+    ///Update UI if succes or present an Alert in case of failure.
     func loadData() {
         model.getBreedsList { [weak self] result in
             switch result {
@@ -72,7 +73,7 @@ class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsU
         }
     }
 
-
+    ///Update table view with received data.
     func updateUI(breedList: [BreedIdAndName]) {
         self.breedsList = breedList
         DispatchQueue.main.async {
@@ -81,7 +82,9 @@ class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsU
             self.uiCoverWiew.removeFromSuperview()
         }
     }
-    
+    ///Present error alert with `Reload` button
+    ///
+    ///Present alert with localized error description and button that run data loading again.
     func presentAlert(error: Error) {
         let alert = UIAlertController.init(title: Constants.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in

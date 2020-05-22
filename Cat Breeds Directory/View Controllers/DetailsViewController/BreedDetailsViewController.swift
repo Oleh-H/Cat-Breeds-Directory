@@ -7,23 +7,23 @@
 //
 
 import UIKit
-
+///Displays breed's cat image and detailed description with links to external resources.
 class BreedDetailsViewController: UIViewController, Storyboarded {
 
     //MARK: Outlets
     @IBOutlet weak var shareBarButton: UIBarButtonItem!
     @IBOutlet weak var tapToChangeLabel: UILabel!
-    
+    //MARK: Image and Name
     @IBOutlet weak var catsImage: UIImageView!
     @IBOutlet weak var breedName: UILabel!
-    
+    //MARK: Labels with text
     @IBOutlet weak var valueTemperament: UILabel!
     @IBOutlet weak var valueOrigin: UILabel!
     @IBOutlet weak var valueDescription: UILabel!
     @IBOutlet weak var valueLifeSpan: UILabel!
     @IBOutlet weak var valueWeightLabel: UILabel!
     @IBOutlet weak var valueIndor: UILabel!
-    
+    //MARK: StackViews with ProgressView
     @IBOutlet weak var adaptabilityStack: UIStackView!
     @IBOutlet weak var affectionStack: UIStackView!
     @IBOutlet weak var catFriendlyStack: UIStackView!
@@ -37,8 +37,7 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     @IBOutlet weak var socialNeedsStack: UIStackView!
     @IBOutlet weak var strangerFriendlyStack: UIStackView!
     @IBOutlet weak var vocalisationStack: UIStackView!
-    
-    
+    //MARK: Labels with Yes / NO
     @IBOutlet weak var valueExperimentalLabel: UILabel!
     @IBOutlet weak var valueHairlessLabel: UILabel!
     @IBOutlet weak var valueRareLabel: UILabel!
@@ -46,15 +45,15 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     @IBOutlet weak var valueSuppressedTailLabel: UILabel!
     @IBOutlet weak var valueShortLegsLabel: UILabel!
     @IBOutlet weak var valueHypoallergenicLabel: UILabel!
-    
-    @IBOutlet weak var uiCoverView: UIView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var activityIndicatorForImage: UIActivityIndicatorView!
-    
+    //MARK: Link buttons
     @IBOutlet weak var cfaButton: UIButton!
     @IBOutlet weak var vcaHospitalsButton: UIButton!
     @IBOutlet weak var vetstreetButton: UIButton!
     @IBOutlet weak var wikipediaButton: UIButton!
+    
+    @IBOutlet weak var uiCoverView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorForImage: UIActivityIndicatorView!
     
     
     //MARK: - Properties
@@ -62,7 +61,6 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     let emojiManager = EmojiManager()
     let model = BreedDetailsModel()
     let network = BreedDetailsNetwork()
-    //let progressDisplayingStackView = ProgressDisplayingStackView()
     
     var breedID: String = ""
     var breedDetails: [BreedDetails] = []
@@ -86,18 +84,21 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
         catsImage.layer.shadowOpacity = 1.0
         catsImage.layer.masksToBounds = false
         
-        activityIndicator.startAnimating()
         
         navigationController?.navigationBar.prefersLargeTitles = false
         
+        activityIndicator.startAnimating()
         loadData()
     }
     
+    
     //MARK: - Data loading and error handling
+    ///Get data from model and Updates the UI.
     func loadData() {
         model.preparedDataForUI(breedID: breedID) { result in
             switch result {
-            case .success(let texts, let stackViews, let yesNoLabels, let links, let image):
+            case .success(let tupple):
+                let(texts, stackViews, yesNoLabels, links, image) = tupple
                 self.links = links
                 DispatchQueue.main.async {
                     self.setTexts(texts: texts)
@@ -118,6 +119,10 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
 
     
     //MARK: Error Alert
+    ///Present error alert with `Reload` button
+    ///
+    ///Present alert with localized error description and button that run data loading again in case its data for the whole page.
+    ///Or, display error for the loading cat image and reloading button respectively for it.
     func presentAlert(error: Error, isItForDetailsData: Bool) {
         let alert = UIAlertController.init(title: Constants.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
         if isItForDetailsData {
@@ -126,7 +131,7 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
             }))
         } else {
             alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in
-                self.changeImage()
+                self.changeCatImage()
             }))
         }
         DispatchQueue.main.async {
@@ -135,7 +140,7 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     }
     
     //MARK: - UI updating
-    
+    ///Set strings to the determined in the function UILabels.
     func setTexts(texts: [String: String]) {
         breedName.text = texts["name"]
         valueTemperament.text = texts["temperament"]
@@ -145,9 +150,8 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
         valueWeightLabel.text = texts["weight"]
     }
 
-    
+    ///Append (prepared and transfered into the function) stackViews into determined in the function UIStackWiews.
     func setValuesForStacks(stack: [String: UIStackView]) {
-        
         let stackViewsForProgressView = [adaptabilityStack, affectionStack, catFriendlyStack, childFriendlyStack, dogFriendlyStack, energyLevelStack, groomingStack, healthIssuesStack, inteligenceStack, sheddingLevelStack, socialNeedsStack, strangerFriendlyStack, vocalisationStack]
         
         for (index, emptyStack) in stackViewsForProgressView.enumerated() {
@@ -156,7 +160,7 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
         }
     }
     
-    
+    ///Set strings to the determined in the function UILabels.
     func setValuesForYesNoLabels(yesNoLabels: [String: String]) {
         let labels = [valueIndor, valueExperimentalLabel, valueHairlessLabel, valueRareLabel, valueRexLabel, valueSuppressedTailLabel, valueShortLegsLabel, valueHypoallergenicLabel]
                 
@@ -166,7 +170,9 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
             label?.text = value
         }
     }
-    
+    ///Set button Enabled / Disabled depending of existing the URL for the button.
+    ///
+    ///Button will left disabled if string contains `nil` or empty string.
     func checkLinksForButtons(links: [String?]) {
         let buttons = [cfaButton, vcaHospitalsButton, vetstreetButton, wikipediaButton]
         

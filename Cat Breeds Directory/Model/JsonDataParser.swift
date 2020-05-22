@@ -7,13 +7,12 @@
 //
 
 import Foundation
-/**
- Contains parsers of JSON data into determined type of data.
- */
+
+///Contains funcrions that parsing JSON data into determined type of data.
 class JsonDataParser {
     
     
-    func parseDataToBreedsList(_ data: Data) -> Result<[BreedIdAndName], Error> {
+    func parseJSONDataToBreedsList(_ data: Data) -> Result<[BreedIdAndName], Error> {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         var decodedBreeds: [BreedIdAndName] = []
@@ -26,7 +25,7 @@ class JsonDataParser {
         }
     }
 
-    func parseDataToBreedDetails(_ data: Data) -> Result<[BreedDetails], Error> {
+    func parseJSONDataToBreedDetails(_ data: Data) -> Result<[BreedDetails], Error> {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         var decodedBreeds: [BreedDetails] = []

@@ -8,9 +8,9 @@
 
 import Foundation
 
-/**
- Contains all properties
- */
+///Type that defines all properties of breed need for decoding saving data received from API.
+///
+///Also, it contains `enum CodingKeys` for specialcases in transformation properties name from **snake_case** to **CamelCase** using `.keyDecodingStrategy` property of `JsonDecoer` class instance.
 struct Breed: Decodable {
     let weight: Weight
     let id: String

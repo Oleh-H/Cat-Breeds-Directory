@@ -8,20 +8,19 @@
 
 import Foundation
 import UIKit
-
+///BreedDetailsNetwork class cotains functions for performing URLSessins and processing results.
 class BreedDetailsNetwork {
-    
     private let jsonDataParser = JsonDataParser()
-       
-   func getBreedDetails(breedID: String, completion: @escaping (Result<[BreedDetails], Error>) -> Void ) {
-       let catApiBreed: String = "\(Constants.catApiUrl)images/search?breed_id=\(breedID)"
-       guard let url = URL(string: catApiBreed) else {return}
-       var request = URLRequest(url: url)
-       request.addValue(Constants.apiKey, forHTTPHeaderField: Constants.httpHeaterFieldForApiKey)
+    ///Perform reques to API with breedID parameter.
+    func getBreedDetails(breedID: String, completion: @escaping (Result<[BreedDetails], Error>) -> Void ) {
+        let catApiBreed: String = "\(Constants.catApiUrl)images/search?breed_id=\(breedID)"
+        guard let url = URL(string: catApiBreed) else {return}
+        var request = URLRequest(url: url)
+        request.addValue(Constants.apiKey, forHTTPHeaderField: Constants.httpHeaterFieldForApiKey)
 
-       let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
            if let data = data {
-               let breedsDetails = self.jsonDataParser.parseDataToBreedDetails(data)
+               let breedsDetails = self.jsonDataParser.parseJSONDataToBreedDetails(data)
                switch breedsDetails {
                case .success(let details):
                    completion(.success(details))
@@ -31,13 +30,13 @@ class BreedDetailsNetwork {
            } else if let error = error {
                completion(.failure(error))
            }
-       }
-       task.resume()
-   }
+        }
+        task.resume()
+    }
    
    
-   
-   func getImage(url: String?, completion: @escaping (Result<UIImage, Error>) -> Void) {
+    ///Perform request to the API on received in instance of `BreedsDetails` type URL, to get image for breed.
+    func getImage(url: String?, completion: @escaping (Result<UIImage, Error>) -> Void) {
        guard let urlString = url else {return}
        let url = URL(string: urlString)
        var request = URLRequest(url: url!)
@@ -52,12 +51,15 @@ class BreedDetailsNetwork {
            }
        }
        task.resume()
-   }
+    }
    
-   func getAnotherImage(breedID: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-       getBreedDetails(breedID: breedID) { (details) in
-           switch details {
-           case .success(let details):
+    ///Perform request to the api to get new image.
+    ///
+    ///Perform request to the API on received breed ID, to get image and breed description responce with new Image url. And than get new image from the api to return in closure.
+    func getAnotherImage(breedID: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        getBreedDetails(breedID: breedID) { (details) in
+            switch details {
+            case .success(let details):
                guard let imageURL = details.first?.url else {return}
                self.getImage(url: imageURL) { (image) in
                    switch image {
@@ -67,9 +69,9 @@ class BreedDetailsNetwork {
                        completion(.failure(error))
                    }
                }
-           case .failure(let error):
+            case .failure(let error):
                completion(.failure(error))
-           }
-       }
-   }
+            }
+        }
+    }
 }

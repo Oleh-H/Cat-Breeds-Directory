@@ -41,6 +41,7 @@ extension BreedsListViewController: UITableViewDelegate {
     // MARK: - Table View Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var selectedBreedID = ""
         if isFiltering {
             selectedBreedID = breedsListFiltered[indexPath.row].id
         } else {

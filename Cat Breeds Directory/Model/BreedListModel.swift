@@ -9,13 +9,15 @@
 import Foundation
 import UIKit
 
+///Prepare data for adding it to UI elements at `BreedListViewController`.
 class BreedListModel {
     
     //MARK: - Properties
     private let jsonDataParser = JsonDataParser()
+    ///Type of `Void` function with `Result` type parameter.
     typealias BreedsList = (Result<[BreedIdAndName], Error>) -> Void
 
-    
+    ///Get breeds list from API and pass data parsed into `BreedIdAndName` as completion handler.
     func getBreedsList(completion: @escaping BreedsList) {
         let catApiBreeds: String = "\(Constants.catApiUrl)breeds"
         guard let url = URL(string: catApiBreeds) else {return}
@@ -24,8 +26,7 @@ class BreedListModel {
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
-//                let string = String(bytes: data, encoding: .utf8)
-                let breedsList = self.jsonDataParser.parseDataToBreedsList(data)
+                let breedsList = self.jsonDataParser.parseJSONDataToBreedsList(data)
                 switch breedsList {
                 case .success(let list):
                     completion(.success(list))

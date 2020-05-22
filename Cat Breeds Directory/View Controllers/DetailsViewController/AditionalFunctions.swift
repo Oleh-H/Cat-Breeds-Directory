@@ -34,7 +34,6 @@ extension BreedDetailsViewController {
         let image: UIImage = catsImage.image!
         let preparedString = model.stringForSharing()
         let activityController = UIActivityViewController(activityItems: [image, preparedString], applicationActivities: nil)
-        /*activityController.popoverPresentationController?.sourceView = sender*/ //for iPad
         
         present(activityController, animated: true, completion: nil)
     }
@@ -52,14 +51,14 @@ extension BreedDetailsViewController {
         }
         
         if gestureRecignizer.state == .ended {
-            changeImage()
+            changeCatImage()
         }
         tapToChangeLabel.textColor = .clear
     }
     
     
     
-    func changeImage() {
+    func changeCatImage() {
         activityIndicatorForImage.isHidden = false
         activityIndicatorForImage.startAnimating()
         network.getAnotherImage(breedID: breedID) { (newImage) in
@@ -76,7 +75,7 @@ extension BreedDetailsViewController {
     }
 
     
-    //animate changing of the cat image
+    ///Animate changing of the cat image with fade out and fade in.
     func imageChangingAnimation(newImage: UIImage) {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.4, animations: {

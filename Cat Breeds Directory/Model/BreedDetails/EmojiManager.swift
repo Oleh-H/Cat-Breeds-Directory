@@ -8,19 +8,18 @@
 
 import Foundation
 
-/// Displaying emoji in strings.
+///Convert strings to Emojies.
 class EmojiManager {
     
-    /**
-    Convert region code String into corresponding region flag emoji.
-     
-     Calling this metod receive region code like `US`, make it uppercased and validate it using `Locale.isoRegionCodes`. If code vas succesfully validated it transforms into string of Unicode scalars. This sring is returned by the function.
-     
-     - Parameters:
-        - regionCode: region code `String`
-     
-     - Returns: Emoji flag of the region
-     */
+    
+    ///Convert region code String into corresponding region flag emoji.
+    ///
+    ///Calling this metod receive region code like `US`, make it uppercased and validate it using `Locale.isoRegionCodes`. If code vas succesfully validated it transforms into string of Unicode scalars. This sring is returned by the function.
+    ///
+    ///- Parameters:
+    ///     - regionCode: region code `String` i.e. "us"
+    ///
+    ///- Returns: Emoji flag of the region.
     func emojiFlag(regionCode: String?) -> String {
         guard let regionCodeString = regionCode else {return ""}
         let code = regionCodeString.uppercased()
