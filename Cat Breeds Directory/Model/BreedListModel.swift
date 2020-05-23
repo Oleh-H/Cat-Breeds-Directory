@@ -26,7 +26,7 @@ class BreedListModel {
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
-                let breedsList = self.jsonDataParser.parseJSONDataToBreedsList(data)
+                let breedsList = self.jsonDataParser.parseJSONData(data, returnType: [BreedIdAndName].self)
                 switch breedsList {
                 case .success(let list):
                     completion(.success(list))

@@ -124,13 +124,13 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     ///Present alert with localized error description and button that run data loading again in case its data for the whole page.
     ///Or, display error for the loading cat image and reloading button respectively for it.
     func presentAlert(error: Error, isItForDetailsData: Bool) {
-        let alert = UIAlertController.init(title: Constants.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController.init(title: Strings.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
         if isItForDetailsData {
-            alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: Strings.errorAlertButton, style: .default, handler: { _ in
                 self.loadData()
             }))
         } else {
-            alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: Strings.errorAlertButton, style: .default, handler: { _ in
                 self.changeCatImage()
             }))
         }
@@ -184,22 +184,23 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     
     //MARK: - Buttons actions
     @IBAction func cfaURLTap(_ sender: UIButton) {
-        let safariVC = links[0]?.urlToSafariViewController()
-        present(safariVC!, animated: true, completion: nil)
+        presentSafariViewController(link: links[0])
     }
     
     @IBAction func vcaHospitalsTap(_ sender: UIButton) {
-        let safariVC = links[1]?.urlToSafariViewController()
-        present(safariVC!, animated: true, completion: nil)
+        presentSafariViewController(link: links[1])
     }
     
     @IBAction func vetStreetTap(_ sender: UIButton) {
-        let safariVC = links[2]?.urlToSafariViewController()
-        present(safariVC!, animated: true, completion: nil)
+        presentSafariViewController(link: links[2])
     }
     
     @IBAction func wikipediaTap(_ sender: UIButton) {
-        let safariVC = links[3]?.urlToSafariViewController()
-        present(safariVC!, animated: true, completion: nil)
+        presentSafariViewController(link: links[3])
+    }
+    
+    func presentSafariViewController(link: String?) {
+        guard let safariVC = link?.urlToSafariViewController() else {return}
+        present(safariVC, animated: true, completion: nil)
     }
 }

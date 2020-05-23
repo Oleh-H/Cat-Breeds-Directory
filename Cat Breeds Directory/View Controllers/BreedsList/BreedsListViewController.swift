@@ -43,7 +43,7 @@ class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsU
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = Constants.searchPlaceHolder
+        searchController.searchBar.placeholder = Strings.searchPlaceHolder
         navigationItem.searchController = searchController
         definesPresentationContext = true //search bar doesn't remains on screen after navigation to another VC
         
@@ -86,8 +86,8 @@ class BreedsListViewController: UIViewController, Storyboarded, UISearchResultsU
     ///
     ///Present alert with localized error description and button that run data loading again.
     func presentAlert(error: Error) {
-        let alert = UIAlertController.init(title: Constants.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Constants.errorAlertButton, style: .default, handler: { _ in
+        let alert = UIAlertController.init(title: Strings.errorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Strings.errorAlertButton, style: .default, handler: { _ in
             self.loadData()
         }))
         DispatchQueue.main.async {

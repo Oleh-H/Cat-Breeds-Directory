@@ -77,14 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A171ACC24730E70002F6823 /* Coordinator Pattern */ = {
+		7A171ACC24730E70002F6823 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
 				7A171AC82473029F002F6823 /* Coordinator.swift */,
 				7A171ACA247307E4002F6823 /* Storyboarded.swift */,
 				7A171ACD24730FEA002F6823 /* MainCoordinator.swift */,
 			);
-			path = "Coordinator Pattern";
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		7A171AD12473FCAB002F6823 /* Structs */ = {
@@ -148,7 +148,7 @@
 		7AC95171245EEAC3008EB7FB /* Cat Breeds Directory */ = {
 			isa = PBXGroup;
 			children = (
-				7A171ACC24730E70002F6823 /* Coordinator Pattern */,
+				7A171ACC24730E70002F6823 /* Coordinator */,
 				7AC9518D245F04C4008EB7FB /* Model */,
 				7ACF8294246199E4006B1A0D /* View Controllers */,
 				7AC95178245EEAC3008EB7FB /* Main.storyboard */,

@@ -16,16 +16,18 @@ struct Constants {
     static let googleSearchBreedsURL = "https://bit.ly/2Tp027d"
     ///Max number for range for some values of [breed] that is in JSON responce from API.
     static let maxNumberForRange: Float = 5.0
+    ///Names of values that should be created as UIStackViews that contains progress view.
+    static let valueNamesForStackViews = ["adaptability", "affectionLevel", "catFriendly", "childFriendly", "dogFriendly", "energyLevel", "grooming", "healthIssues", "intelligence", "sheddingLevel", "socialNeeds", "strangerFriendly", "vocalisation"]
     
+    ///Names of values that should be created as Labels with "Yes" / "No" strings.
+    static let valueNamesForYesNoLabels = ["indoor", "experimental", "hairless", "rare", "rex", "suppressedTail", "shortLegs", "hypoallergenic"]
+}
+
+struct Strings {
     //UI strings
     static let noInfoString = "No information available"
     static let searchPlaceHolder = "Search breeds"
     static let errorAlertTitle = "Error"
     static let errorAlertButton = "Reload"
     
-    ///Names of values that should be created as UIStackViews that contains progress view.
-    static let valueNamesForStackViews = ["adaptability", "affectionLevel", "catFriendly", "childFriendly", "dogFriendly", "energyLevel", "grooming", "healthIssues", "intelligence", "sheddingLevel", "socialNeeds", "strangerFriendly", "vocalisation"]
-    
-    ///Names of values that should be created as Labels with "Yes" / "No" strings.
-    static let valueNamesForYesNoLabels = ["indoor", "experimental", "hairless", "rare", "rex", "suppressedTail", "shortLegs", "hypoallergenic"]
 }

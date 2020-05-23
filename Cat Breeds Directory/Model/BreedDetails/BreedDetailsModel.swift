@@ -66,18 +66,18 @@ class BreedDetailsModel {
         
         let origin = breed.origin
         let flag = emojiManager.emojiFlag(regionCode: breed.countryCode)
-        textLabels["origin"] = "\(origin ?? Constants.noInfoString) \(flag)"
+        textLabels["origin"] = "\(origin ?? Strings.noInfoString) \(flag)"
         
         textLabels["description"] = breed.description
         
         if let lifeSpan = breed.lifeSpan {
             textLabels["lifeSpan"] = "\(lifeSpan) years"
         } else {
-            textLabels["lifeSpan"] = Constants.noInfoString
+            textLabels["lifeSpan"] = Strings.noInfoString
         }
         
-        let kgString = "\(breed.weight.metric ?? Constants.noInfoString) kg"
-        let lbString = " (\(breed.weight.imperial ?? Constants.noInfoString) lb)"
+        let kgString = "\(breed.weight.metric ?? Strings.noInfoString) kg"
+        let lbString = " (\(breed.weight.imperial ?? Strings.noInfoString) lb)"
         textLabels["weight"] = kgString + lbString
         
         return textLabels

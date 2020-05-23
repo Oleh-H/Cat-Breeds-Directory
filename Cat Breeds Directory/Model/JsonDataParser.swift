@@ -11,29 +11,22 @@ import Foundation
 ///Contains funcrions that parsing JSON data into determined type of data.
 class JsonDataParser {
     
+    ///Parse JSON data to `returnType:` type.
+    ///
+    ///- Note: Function used `.convertFromSnakeCase` key decoding strategy property for `JSONDecoder` instance.
+    ///- Parameters:
+    ///     - data: data in JSON format.
+    ///     - returnType: data will be parsed into this type.
+    func parseJSONData<T: Decodable>(_ data: Data, returnType: [T].Type) -> Result<[T], Error> {
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+        var decodedBreeds: [T] = []
+        do {
+            decodedBreeds = try jsonDecoder.decode(returnType.self, from: data)
+            return .success(decodedBreeds)
+        } catch let error as NSError {
+            return .failure(error)
+        }
+    }
     
-    func parseJSONDataToBreedsList(_ data: Data) -> Result<[BreedIdAndName], Error> {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        var decodedBreeds: [BreedIdAndName] = []
-        do {
-            decodedBreeds = try jsonDecoder.decode([BreedIdAndName].self, from: data)
-            return .success(decodedBreeds)
-        } catch let error as NSError {
-            debugPrint(error.localizedDescription)
-            return .failure(error)
-        }
-    }
-
-    func parseJSONDataToBreedDetails(_ data: Data) -> Result<[BreedDetails], Error> {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        var decodedBreeds: [BreedDetails] = []
-        do {
-            decodedBreeds = try jsonDecoder.decode([BreedDetails].self, from: data)
-            return .success(decodedBreeds)
-        } catch let error as NSError {
-            return .failure(error)
-        }
-    }
 }

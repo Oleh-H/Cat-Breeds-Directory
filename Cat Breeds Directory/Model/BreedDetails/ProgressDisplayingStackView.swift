@@ -27,7 +27,7 @@ final class ProgressDisplayingStackView {
     ///Label to display in case number value = nil
     private let noInfoLabel: UILabel = {
         let label = UILabel()
-        label.text = Constants.noInfoString
+        label.text = Strings.noInfoString
         return label
     }()
     

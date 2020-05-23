@@ -20,7 +20,7 @@ class BreedDetailsNetwork {
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
            if let data = data {
-               let breedsDetails = self.jsonDataParser.parseJSONDataToBreedDetails(data)
+            let breedsDetails = self.jsonDataParser.parseJSONData(data, returnType: [BreedDetails].self)
                switch breedsDetails {
                case .success(let details):
                    completion(.success(details))
