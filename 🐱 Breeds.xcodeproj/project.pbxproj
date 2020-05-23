@@ -26,7 +26,6 @@
 		7AC95173245EEAC3008EB7FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95172245EEAC3008EB7FB /* AppDelegate.swift */; };
 		7AC95175245EEAC3008EB7FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */; };
 		7AC9517A245EEAC3008EB7FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC95178245EEAC3008EB7FB /* Main.storyboard */; };
-		7AC9517D245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */; };
 		7AC9517F245EEAC9008EB7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AC9517E245EEAC9008EB7FB /* Assets.xcassets */; };
 		7AC95182245EEAC9008EB7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */; };
 		7AC9518A245EED24008EB7FB /* BreedsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC95189245EED24008EB7FB /* BreedsListViewController.swift */; };
@@ -56,7 +55,6 @@
 		7AC95172245EEAC3008EB7FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7AC95179245EEAC3008EB7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7AC9517C245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cat_Breeds_Directory.xcdatamodel; sourceTree = "<group>"; };
 		7AC9517E245EEAC9008EB7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AC95181245EEAC9008EB7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AC95183245EEAC9008EB7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -152,12 +150,11 @@
 				7AC9518D245F04C4008EB7FB /* Model */,
 				7ACF8294246199E4006B1A0D /* View Controllers */,
 				7AC95178245EEAC3008EB7FB /* Main.storyboard */,
+				7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */,
 				7AC9517E245EEAC9008EB7FB /* Assets.xcassets */,
 				7AC95174245EEAC3008EB7FB /* SceneDelegate.swift */,
 				7AC95172245EEAC3008EB7FB /* AppDelegate.swift */,
-				7AC95180245EEAC9008EB7FB /* LaunchScreen.storyboard */,
 				7AC95183245EEAC9008EB7FB /* Info.plist */,
-				7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */,
 			);
 			path = "Cat Breeds Directory";
 			sourceTree = "<group>";
@@ -273,7 +270,6 @@
 				7A5AF28E246C728800E689E8 /* JsonDataParser.swift in Sources */,
 				7A171ACE24730FEA002F6823 /* MainCoordinator.swift in Sources */,
 				7AC95175245EEAC3008EB7FB /* SceneDelegate.swift in Sources */,
-				7AC9517D245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld in Sources */,
 				7AB3493F246ED796002AAFB7 /* BreedListModel.swift in Sources */,
 				7A171AD324741469002F6823 /* ProgressDisplayingStackView.swift in Sources */,
 				7A1AB9DE24683CF300B5E634 /* AditionalFunctions.swift in Sources */,
@@ -474,19 +470,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		7AC9517B245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7AC9517C245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodel */,
-			);
-			currentVersion = 7AC9517C245EEAC3008EB7FB /* Cat_Breeds_Directory.xcdatamodel */;
-			path = Cat_Breeds_Directory.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 7AC95167245EEAC3008EB7FB /* Project object */;
 }
