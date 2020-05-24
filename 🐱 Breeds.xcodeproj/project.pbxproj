@@ -15,6 +15,8 @@
 		7A171AD7247520A2002F6823 /* SafariViewForStringURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A171AD6247520A2002F6823 /* SafariViewForStringURL.swift */; };
 		7A171AD92475732B002F6823 /* BreedDetailsNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A171AD82475732B002F6823 /* BreedDetailsNetwork.swift */; };
 		7A1AB9DE24683CF300B5E634 /* AditionalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */; };
+		7A35B333247A777B00E1810A /* StringToFlagEmojiConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35B332247A777B00E1810A /* StringToFlagEmojiConversionTests.swift */; };
+		7A475A26247A9E0C0073C7C1 /* breedJsonCorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A475A25247A9E0C0073C7C1 /* breedJsonCorrect.json */; };
 		7A525EAE2464608D004D987C /* BreedIdAndName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAD2464608D004D987C /* BreedIdAndName.swift */; };
 		7A525EB02465970B004D987C /* EmojiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A525EAF2465970B004D987C /* EmojiManager.swift */; };
 		7A5AF28C246C2FBB00E689E8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AF28B246C2FBB00E689E8 /* Environment.swift */; };
@@ -34,6 +36,16 @@
 		7AD340422464379A00E956D5 /* BreedDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD340412464379A00E956D5 /* BreedDetails.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7A35B32B247A6B0E00E1810A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AC95167245EEAC3008EB7FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AC9516E245EEAC3008EB7FB;
+			remoteInfo = "Cat Breeds Directory";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7A171AC82473029F002F6823 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		7A171ACA247307E4002F6823 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -43,6 +55,10 @@
 		7A171AD6247520A2002F6823 /* SafariViewForStringURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewForStringURL.swift; sourceTree = "<group>"; };
 		7A171AD82475732B002F6823 /* BreedDetailsNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetailsNetwork.swift; sourceTree = "<group>"; };
 		7A1AB9DD24683CF300B5E634 /* AditionalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AditionalFunctions.swift; sourceTree = "<group>"; };
+		7A35B326247A6B0E00E1810A /* 🐱 BreedsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "🐱 BreedsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A35B32A247A6B0E00E1810A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A35B332247A777B00E1810A /* StringToFlagEmojiConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringToFlagEmojiConversionTests.swift; sourceTree = "<group>"; };
+		7A475A25247A9E0C0073C7C1 /* breedJsonCorrect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = breedJsonCorrect.json; sourceTree = "<group>"; };
 		7A525EAD2464608D004D987C /* BreedIdAndName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedIdAndName.swift; sourceTree = "<group>"; };
 		7A525EAF2465970B004D987C /* EmojiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiManager.swift; sourceTree = "<group>"; };
 		7A5AF28B246C2FBB00E689E8 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -65,6 +81,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7A35B323247A6B0E00E1810A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AC9516C245EEAC3008EB7FB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -117,6 +140,16 @@
 			path = DetailsViewController;
 			sourceTree = "<group>";
 		};
+		7A35B327247A6B0E00E1810A /* 🐱 BreedsTests */ = {
+			isa = PBXGroup;
+			children = (
+				7A35B32A247A6B0E00E1810A /* Info.plist */,
+				7A35B332247A777B00E1810A /* StringToFlagEmojiConversionTests.swift */,
+				7A475A25247A9E0C0073C7C1 /* breedJsonCorrect.json */,
+			);
+			path = "🐱 BreedsTests";
+			sourceTree = "<group>";
+		};
 		7AB3496F24702EC4002AAFB7 /* BreedsList */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				7AC95171245EEAC3008EB7FB /* Cat Breeds Directory */,
+				7A35B327247A6B0E00E1810A /* 🐱 BreedsTests */,
 				7AC95170245EEAC3008EB7FB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -139,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				7AC9516F245EEAC3008EB7FB /* 🐱 Breeds.app */,
+				7A35B326247A6B0E00E1810A /* 🐱 BreedsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,6 +218,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7A35B325247A6B0E00E1810A /* 🐱 BreedsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A35B32F247A6B0E00E1810A /* Build configuration list for PBXNativeTarget "🐱 BreedsTests" */;
+			buildPhases = (
+				7A35B322247A6B0E00E1810A /* Sources */,
+				7A35B323247A6B0E00E1810A /* Frameworks */,
+				7A35B324247A6B0E00E1810A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A35B32C247A6B0E00E1810A /* PBXTargetDependency */,
+			);
+			name = "🐱 BreedsTests";
+			productName = "🐱 BreedsTests";
+			productReference = 7A35B326247A6B0E00E1810A /* 🐱 BreedsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7AC9516E245EEAC3008EB7FB /* Cat Breeds Directory */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AC95186245EEAC9008EB7FB /* Build configuration list for PBXNativeTarget "Cat Breeds Directory" */;
@@ -206,10 +259,14 @@
 		7AC95167245EEAC3008EB7FB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Oleh Haistruk";
 				TargetAttributes = {
+					7A35B325247A6B0E00E1810A = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 7AC9516E245EEAC3008EB7FB;
+					};
 					7AC9516E245EEAC3008EB7FB = {
 						CreatedOnToolsVersion = 11.4.1;
 					};
@@ -229,11 +286,20 @@
 			projectRoot = "";
 			targets = (
 				7AC9516E245EEAC3008EB7FB /* Cat Breeds Directory */,
+				7A35B325247A6B0E00E1810A /* 🐱 BreedsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7A35B324247A6B0E00E1810A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A475A26247A9E0C0073C7C1 /* breedJsonCorrect.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AC9516D245EEAC3008EB7FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,6 +313,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7A35B322247A6B0E00E1810A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A35B333247A777B00E1810A /* StringToFlagEmojiConversionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AC9516B245EEAC3008EB7FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -278,6 +352,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7A35B32C247A6B0E00E1810A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AC9516E245EEAC3008EB7FB /* Cat Breeds Directory */;
+			targetProxy = 7A35B32B247A6B0E00E1810A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		7AC95178245EEAC3008EB7FB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -298,6 +380,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7A35B32D247A6B0E00E1810A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9J8464N7L;
+				INFOPLIST_FILE = "🐱 BreedsTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "OG.---BreedsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/🐱 Breeds.app/🐱 Breeds";
+			};
+			name = Debug;
+		};
+		7A35B32E247A6B0E00E1810A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9J8464N7L;
+				INFOPLIST_FILE = "🐱 BreedsTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "OG.---BreedsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/🐱 Breeds.app/🐱 Breeds";
+			};
+			name = Release;
+		};
 		7AC95184245EEAC9008EB7FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -451,6 +575,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7A35B32F247A6B0E00E1810A /* Build configuration list for PBXNativeTarget "🐱 BreedsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A35B32D247A6B0E00E1810A /* Debug */,
+				7A35B32E247A6B0E00E1810A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AC9516A245EEAC3008EB7FB /* Build configuration list for PBXProject "🐱 Breeds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 ///BreedDetailsNetwork class cotains functions for performing URLSessins and processing results.
 class BreedDetailsNetwork {
+    
     private let jsonDataParser = JsonDataParser()
     ///Perform reques to API with breedID parameter.
     func getBreedDetails(breedID: String, completion: @escaping (Result<[BreedDetails], Error>) -> Void ) {
