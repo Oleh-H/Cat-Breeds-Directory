@@ -24,5 +24,4 @@ class SafariViewTests: XCTestCase {
         XCTAssertNil(safariView, "Return nil in case URL can't be succesfully initialized from string.")
     }
 
-
 }
