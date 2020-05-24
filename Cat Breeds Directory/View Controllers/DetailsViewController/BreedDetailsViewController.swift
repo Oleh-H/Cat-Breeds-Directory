@@ -200,7 +200,14 @@ class BreedDetailsViewController: UIViewController, Storyboarded {
     }
     
     func presentSafariViewController(link: String?) {
-        guard let safariVC = link?.urlToSafariViewController() else {return}
+        guard let safariVC = link?.urlToSafariViewController() else {
+            let linkError = UIAlertController.init(title: Strings.errorAlertTitle, message: Strings.errorMessageForBrokenLinks, preferredStyle: .alert)
+            present(linkError, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                linkError.dismiss(animated: true, completion: nil)
+            }
+            return
+        }
         present(safariVC, animated: true, completion: nil)
     }
 }

@@ -29,5 +29,6 @@ struct Strings {
     static let searchPlaceHolder = "Search breeds"
     static let errorAlertTitle = "Error"
     static let errorAlertButton = "Reload"
+    static let errorMessageForBrokenLinks = "Sorry, this link is broken."
     
 }

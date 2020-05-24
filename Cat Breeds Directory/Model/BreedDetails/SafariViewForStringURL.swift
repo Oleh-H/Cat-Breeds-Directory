@@ -16,7 +16,7 @@ extension String {
     ///
     ///If string can't be converted to url correctly function returns standart page determined in `Constants` struct.
     func urlToSafariViewController() -> SFSafariViewController? {
-        guard let url = URL(string: self) else { return SFSafariViewController(url: URL(string: Constants.googleSearchBreedsURL)!)}
+        guard let url = URL.init(string: self) else { return nil }
         let safariViewController = SFSafariViewController(url: url)
         return safariViewController
     }
