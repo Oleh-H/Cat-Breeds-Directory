@@ -147,10 +147,18 @@
 			children = (
 				7A35B32A247A6B0E00E1810A /* Info.plist */,
 				7A35B332247A777B00E1810A /* StringToFlagEmojiConversionTests.swift */,
-				7A475A25247A9E0C0073C7C1 /* breedJsonCorrect.json */,
 				7A475A27247AAA1A0073C7C1 /* SafariViewTests.swift */,
+				7A475A29247ABA1B0073C7C1 /* Resources */,
 			);
 			path = "🐱 BreedsTests";
+			sourceTree = "<group>";
+		};
+		7A475A29247ABA1B0073C7C1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A475A25247A9E0C0073C7C1 /* breedJsonCorrect.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		7AB3496F24702EC4002AAFB7 /* BreedsList */ = {
